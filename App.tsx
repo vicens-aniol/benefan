@@ -1,34 +1,44 @@
 import { NavigationContainer } from "@react-navigation/native";
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import ButtonAniol from "./components/Button";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import Home from "./Home";
+import Details from "./Details";
+import { useState, useEffect } from "react";
+import { supabase } from "./lib/supabase";
+import Auth from "./components/Auth";
+import { Session } from "@supabase/supabase-js";
+import { View, Text } from "react-native";
 
-export default function App() {
-  const [text, setText] = useState<string>("Hello World");
+const Tab = createBottomTabNavigator();
 
-  const onPress = () => {
-    console.log("Hello");
-    setText("Hello Aniol");
-  };
+const App = () => {
+  const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      console.log("useEffect");
-      setText("useEffect");
-    }, 5000);
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
+
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    });
   }, []);
 
-  return (
+  return session && session.user ? (
     <NavigationContainer>
-      <View className="flex-1 items-center justify-center">
-        <ButtonAniol
-          title="Click para cambiar el texto"
-          onPress={onPress}
+      <Tab.Navigator>
+        <Tab.Screen
+          name="Home"
+          component={Home}
         />
-        <Text>{text}</Text>
-        <StatusBar />
-      </View>
+        <Tab.Screen
+          name="Details"
+          component={Details}
+        />
+      </Tab.Navigator>
     </NavigationContainer>
+  ) : (
+    <Auth />
   );
-}
+};
+
+export default App;
