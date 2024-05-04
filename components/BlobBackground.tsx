@@ -18,6 +18,11 @@ interface BlobBackgroundProps {
         resizeMode="cover"
         />
         <Image
+        source={require('../assets/IMG/Blobs/OrangeBlob.png')}
+        style={[styles.blob, styles.blobTopLeft]}
+        resizeMode="cover"
+        />
+        <Image
         source={require('../assets/IMG/Blobs/GreenBlob.png')}
         style={[styles.blob, styles.blobBottomRight]}
         resizeMode="cover"
@@ -40,11 +45,11 @@ const styles = StyleSheet.create({
   },
   blobTopLeft: {
     top: -50,
-    left: -100,
+    left: -50,
   },
   blobBottomRight: {
     bottom: -100,
-    right: -50,
+    right: -30,
   },
 });
 

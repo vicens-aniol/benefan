@@ -44,6 +44,10 @@ const commonStyles = StyleSheet.create({
     paddingHorizontal: 100,     // Padding horizontal
     alignItems: 'center',      // Centra el texto horizontalmente
     justifyContent: 'center',  // Centra el texto verticalmente
+  },
+  boldlabelforbutton: {
+    color: '#fff',
+    fontWeight: 'bold',
   }
 });
 

@@ -2,6 +2,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
+
+import ScheduleScreen from "./pages/ScheduleScreen";
+
 import { useState, useEffect } from "react";
 import { supabase } from "./lib/supabase";
 import Auth from "./components/Auth";
@@ -35,7 +38,10 @@ const App = () => {
           />
         <Tab.Screen
           name="Details"
-          component={Details}
+          component={ScheduleScreen}
+          options={{
+            headerShown: false, // Disable the header for this tab
+          }}
           />
         <Tab.Screen
           name="Carrousel"

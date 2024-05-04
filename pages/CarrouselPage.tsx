@@ -22,7 +22,7 @@ const HomeScreen: React.FC<{ navigateToCarrousel3: () => void }> = ({ navigateTo
       Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.
     </Text>
     <View>
-    <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={navigateToCarrousel3}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
+    <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={navigateToCarrousel3}><Text style={commonStyles.boldlabelforbutton}>Next</Text></TouchableOpacity>
     </View>
   </View>
   </BlobBackground>
@@ -42,7 +42,7 @@ const Home2Screen: React.FC<{ navigateToCarrousel1: () => void }> = ({ navigateT
       Lorem Ipsum is not just random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
     </Text>
     <View>
-    <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={navigateToCarrousel1}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
+    <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={navigateToCarrousel1}><Text style={commonStyles.boldlabelforbutton}>Next</Text></TouchableOpacity>
     </View>
   </View>
   </BlobBackground>
@@ -62,7 +62,7 @@ const Home3Screen: React.FC<{ navigateToCarrousel2: () => void }> = ({ navigateT
       Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
     </Text>
     <View >
-      <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={navigateToCarrousel2}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
+      <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={navigateToCarrousel2}><Text style={commonStyles.boldlabelforbutton}>Next</Text></TouchableOpacity>
     </View>
   </View>
   </BlobBackground>
@@ -82,7 +82,8 @@ const SearchCelebrity: React.FC<{ navigateToSearch: () => void }> = ({ navigateT
       Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
     </Text>
     <View >
-      <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={navigateToSearch}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
+      <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={navigateToSearch}>
+        <Text style={commonStyles.boldlabelforbutton}>Next</Text></TouchableOpacity>
     </View>
   </View>
   </BlobBackground>
