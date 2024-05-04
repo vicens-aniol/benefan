@@ -11,6 +11,7 @@ const beyonceImage = require('../assets/IMG/Celebrities/Beyonce.jpeg');
 const drakeImage = require('../assets/IMG/Celebrities/drake.jpg');
 const shakiraImage = require('../assets/IMG/Celebrities/shakira.jpg');
 const jLoImage = require('../assets/IMG/Celebrities/jLo.jpeg');
+const placeholderImage = require('../assets/IMG/Celebrities/PlaceholderPFP.png');
 
 // Define the type for a celebrity
 type Celebrity = {
@@ -30,10 +31,10 @@ const celebrities: Celebrity[] = [
   { id: '6', name: 'Drake', role: 'Rapper', image: drakeImage },
   { id: '7', name: 'Shakira', role: 'Singer', image: shakiraImage },
   { id: '8', name: 'Jennifer Lopez', role: 'Singer', image: jLoImage },
-  { id: '9', name: 'Aniol Vicens', role: 'Singer?', image: shakiraImage },
-  { id: '10', name: 'Marc Mallol', role: 'Obviously designer', image: shakiraImage },
-  { id: '11', name: 'Oriol Pont', role: 'it depends', image: shakiraImage },
-  { id: '12', name: 'Josep Roura', role: 'Driver', image: shakiraImage },
+  { id: '9', name: 'Aniol Vicens', role: 'Singer?', image: placeholderImage },
+  { id: '10', name: 'Marc Mallol', role: 'Obviously designer', image: placeholderImage },
+  { id: '11', name: 'Oriol Pont', role: 'it depends', image: placeholderImage },
+  { id: '12', name: 'Josep Roura', role: 'Driver', image: placeholderImage },
 ];
 
 const SearchScreen: React.FC = () => {
