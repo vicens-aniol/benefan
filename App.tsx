@@ -2,6 +2,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
+import YourCelebrities from "./pages/YourCelebrities";
 import { useState, useEffect } from "react";
 import { supabase } from "./lib/supabase";
 import Auth from "./components/Auth";
@@ -33,6 +34,10 @@ const App = () => {
         <Tab.Screen
           name="Details"
           component={Details}
+        />
+        <Tab.Screen
+          name="YourCelebrities"
+          component={YourCelebrities}
         />
       </Tab.Navigator>
     </NavigationContainer>

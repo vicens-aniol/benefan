@@ -49,7 +49,7 @@ export default function Auth() {
         source={
           require( "../assets/Logo.png")
       }
-    />
+      />
       </View>
       <View style={[styles.inputContainer, styles.verticallySpaced]}>
       <View
