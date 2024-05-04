@@ -26,9 +26,6 @@ const commonStyles = StyleSheet.create({
     textAlign: 'left',
     marginVertical: 10,
   },
-  buttonContainer: {
-    marginTop: 10,
-  },
   primaryText: {
     color: '#4D8D93',
     fontSize: 18,
@@ -40,6 +37,14 @@ const commonStyles = StyleSheet.create({
     fontSize: 20, // Increased font size
     lineHeight: 54, // Aligns text vertically within the container
   },
+  buttonContainer_rounded: {
+    backgroundColor: '#4D8D93', // Color de fondo del botón
+    borderRadius: 25,          // Bordes redondeados
+    paddingVertical: 10,       // Padding vertical
+    paddingHorizontal: 100,     // Padding horizontal
+    alignItems: 'center',      // Centra el texto horizontalmente
+    justifyContent: 'center',  // Centra el texto verticalmente
+  }
 });
 
 export default commonStyles;

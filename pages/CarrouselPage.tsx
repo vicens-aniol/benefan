@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, View, Text, StyleSheet, Image } from 'react-native';
 import BlobBackground from '../components/BlobBackground'; 
 import { TouchableOpacity } from 'react-native';
+import commonStyles from '../styles/commonStyles';
 
 // Definición de tipo para los componentes de pantalla
 type Screen = 'Carrousel' | 'Carrousel2' | 'Carrousel3' | 'navigateToSearch';
@@ -21,7 +22,7 @@ const HomeScreen: React.FC<{ navigateToCarrousel3: () => void }> = ({ navigateTo
       Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.
     </Text>
     <View>
-    <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCarrousel3}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
+    <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={navigateToCarrousel3}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
     </View>
   </View>
   </BlobBackground>
@@ -41,7 +42,7 @@ const Home2Screen: React.FC<{ navigateToCarrousel1: () => void }> = ({ navigateT
       Lorem Ipsum is not just random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
     </Text>
     <View>
-    <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCarrousel1}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
+    <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={navigateToCarrousel1}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
     </View>
   </View>
   </BlobBackground>
@@ -61,7 +62,7 @@ const Home3Screen: React.FC<{ navigateToCarrousel2: () => void }> = ({ navigateT
       Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
     </Text>
     <View >
-      <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCarrousel2}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
+      <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={navigateToCarrousel2}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
     </View>
   </View>
   </BlobBackground>
@@ -81,7 +82,7 @@ const SearchCelebrity: React.FC<{ navigateToSearch: () => void }> = ({ navigateT
       Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
     </Text>
     <View >
-      <TouchableOpacity style={styles.buttonContainer} onPress={navigateToSearch}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
+      <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={navigateToSearch}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
     </View>
   </View>
   </BlobBackground>
@@ -139,14 +140,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
     marginBottom: 20,
-  },
-  buttonContainer: {
-    backgroundColor: '#4D8D93', // Color de fondo del botón
-    borderRadius: 25,          // Bordes redondeados
-    paddingVertical: 10,       // Padding vertical
-    paddingHorizontal: 100,     // Padding horizontal
-    alignItems: 'center',      // Centra el texto horizontalmente
-    justifyContent: 'center',  // Centra el texto verticalmente
   }
 });
 

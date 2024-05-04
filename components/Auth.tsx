@@ -3,6 +3,7 @@ import { Alert, StyleSheet, View, Text, ImageBackground, Image, TouchableOpacity
 import { supabase } from "../lib/supabase";
 import { Button, Input } from "react-native-elements";
 import commonStyles from '../styles/commonStyles';
+import BlobBackground from "./BlobBackground";
 
 
 export default function Auth() {
@@ -38,6 +39,7 @@ export default function Auth() {
   }
 
   return (
+    <BlobBackground>
     <View style={styles.container}>
       <Text />
       <View>
@@ -93,6 +95,7 @@ export default function Auth() {
         </View>
       </View>
     </View>
+    </BlobBackground>
   );
 }
 
@@ -147,7 +150,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     borderWidth: 1,
     borderColor: "rgba(12, 25, 29, 0.16)",
     borderRadius: 12,
@@ -172,7 +175,7 @@ const styles = StyleSheet.create({
     height: 180,
   },
   Rectangle42: {
-    width: 295,
+    width: 85,
     height: 54,
     borderRadius: 12,
     backgroundColor: "rgba(77,141,147,1)",
