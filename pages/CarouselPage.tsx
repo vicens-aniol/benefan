@@ -15,13 +15,13 @@ type Celebrity = {
 type RootStackParamList = {
   Carousel: undefined;
   Search: undefined;
+  CelebrityInfo: undefined
 };
 
-type Screen = 'Carrousel1' | 'Carrousel2' | 'Carrousel3' | 'Search';
+type Screen = 'Carrousel1' | 'Carrousel2' | 'Carrousel3' | 'Search' | 'CelebrityInfo';
 
 // Sample data for the celebrities
-
-type CarouselNavigationProp = StackNavigationProp<RootStackParamList, 'Carousel'>;
+type CarrouselNavigationProp = StackNavigationProp<RootStackParamList, 'Carousel'>;
 const celebData: Celebrity[] = [
   { id: '1', image: require('../assets/IMG/Celebrities/TaylorSwift.png'), name: 'Taylor Swift', description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.' },
   { id: '2', image: require('../assets/IMG/Celebrities/LionelMessi.png'), name: 'Lionel Messi', description: 'Lorem Ipsum is not just random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.' },
@@ -30,7 +30,7 @@ const celebData: Celebrity[] = [
 
 const CarouselPage: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<Screen>('Carrousel1');
-  const navigation = useNavigation<CarouselNavigationProp>();
+  const navigation = useNavigation<CarrouselNavigationProp>();
 
   const navigate = () => {
     if (currentScreen === 'Carrousel3') {

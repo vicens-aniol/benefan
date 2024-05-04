@@ -1,68 +1,141 @@
 import React, { useState } from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Image, TextInput, FlatList, TouchableOpacity, ImageSourcePropType } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Image, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import BlobBackground from '../components/BlobBackground';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { ImageSourcePropType } from 'react-native';
 
-// Import images statically
-const eminemImage = require('../assets/IMG/Celebrities/Eminem.png');
-const taylorSwiftImage = require('../assets/IMG/Celebrities/TaylorSwift.png');
-const messiImage = require('../assets/IMG/Celebrities/LionelMessi.png');
-const ronaldoImage = require('../assets/IMG/Celebrities/CristianoRonaldo.png');
-const beyonceImage = require('../assets/IMG/Celebrities/Beyonce.jpeg');
-const drakeImage = require('../assets/IMG/Celebrities/drake.jpg');
-const shakiraImage = require('../assets/IMG/Celebrities/shakira.jpg');
-const jLoImage = require('../assets/IMG/Celebrities/jLo.jpeg');
+type RootStackParamList = {
+    Carrousel: undefined; 
+    Search: undefined;    
+    CelebrityInfo: {      
+      name: string;
+      role: string;
+      image: ImageSourcePropType;
+      date: string;
+      description: string;
+    };
+  };
 
-// Define the type for a celebrity
 type Celebrity = {
   id: string;
   name: string;
   role: string;
-  image: ImageSourcePropType; // Now using NodeRequire for image
+  image: ImageSourcePropType;
+  date: string;
+  description: string;
 };
 
-// Sample data for celebrities
-const celebrities: Celebrity[] = [
-  { id: '1', name: 'Eminem', role: 'Rapper', image: eminemImage },
-  { id: '2', name: 'Taylor Swift', role: 'Singer', image: taylorSwiftImage },
-  { id: '3', name: 'Messi', role: 'Football Player', image: messiImage },
-  { id: '4', name: 'Cristiano Ronaldo', role: 'Football Player', image: ronaldoImage },
-  { id: '5', name: 'Beyoncé', role: 'Singer', image: beyonceImage },
-  { id: '6', name: 'Drake', role: 'Rapper', image: drakeImage },
-  { id: '7', name: 'Shakira', role: 'Singer', image: shakiraImage },
-  { id: '8', name: 'Jennifer Lopez', role: 'Singer', image: jLoImage }
-];
+const celebrities = [
+    {
+      id: '1',
+      name: 'Eminem',
+      role: 'Rapper',
+      image: require('../assets/IMG/Celebrities/Eminem.png'),
+      date: '2023-12-31',
+      description: 'Eminem, a pivotal figure in hip-hop, known for his sharp lyrics and dynamic rhythms, has influenced many with his distinctive style.'
+    },
+    {
+      id: '2',
+      name: 'Taylor Swift',
+      role: 'Singer',
+      image: require('../assets/IMG/Celebrities/TaylorSwift.png'),
+      date: '2024-01-20',
+      description: 'Taylor Swift has evolved from country sweetheart to a pop superstar, known for her narrative songwriting which often centers around her personal life.'
+    },
+    {
+      id: '3',
+      name: 'Messi',
+      role: 'Football Player',
+      image: require('../assets/IMG/Celebrities/LionelMessi.png'),
+      date: '2024-03-10',
+      description: 'Lionel Messi is celebrated as one of football’s all-time greats, with a record-breaking career at Barcelona and now showcasing his skills at PSG.'
+    },
+    {
+      id: '4',
+      name: 'Cristiano Ronaldo',
+      role: 'Football Player',
+      image: require('../assets/IMG/Celebrities/CristianoRonaldo.png'),
+      date: '2024-02-15',
+      description: 'Cristiano Ronaldo, famed for his powerful goal-scoring ability, has dominated football with his skill and dedication on the field.'
+    },
+    {
+      id: '5',
+      name: 'Beyoncé',
+      role: 'Singer',
+      image: require('../assets/IMG/Celebrities/Beyonce.jpeg'),
+      date: '2024-04-25',
+      description: 'Beyoncé, a global icon and music industry powerhouse, continues to captivate audiences with her powerful vocals and electrifying performances.'
+    },
+    {
+      id: '6',
+      name: 'Drake',
+      role: 'Rapper',
+      image: require('../assets/IMG/Celebrities/drake.jpg'),
+      date: '2024-05-16',
+      description: 'Drake is a prominent figure in modern music, shaping the sound of hip-hop and R&B with his innovative melodies and thoughtful lyrics.'
+    },
+    {
+      id: '7',
+      name: 'Shakira',
+      role: 'Singer',
+      image: require('../assets/IMG/Celebrities/shakira.jpg'),
+      date: '2024-06-20',
+      description: 'Shakira, known for her unique voice and belly dancing, combines Latin rhythms with pop to create catchy tunes that are loved worldwide.'
+    },
+    {
+      id: '8',
+      name: 'Jennifer Lopez',
+      role: 'Singer',
+      image: require('../assets/IMG/Celebrities/jLo.jpeg'),
+      date: '2024-07-12',
+      description: 'Jennifer Lopez is not only a successful singer and actress but also a style icon, inspiring many with her diverse talents and entrepreneurial spirit.'
+    }
+  ];
+
 
 const SearchScreen: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList, 'Search'>>();
 
   const filteredCelebrities = celebrities.filter(celebrity =>
     celebrity.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
+  const openCelebrityInfo = (celebrity: Celebrity) => {
+    navigation.navigate('CelebrityInfo', {
+      name: celebrity.name,
+      role: celebrity.role,
+      image: celebrity.image,
+      date: celebrity.date,
+      description: celebrity.description
+    });
+  };
+
   return (
     <BlobBackground>
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>Celebrities</Text>  
-            <TextInput
-                style={styles.searchInput}
-                placeholder="Search Celebrities"
-                value={searchQuery}
-                onChangeText={setSearchQuery}
-            />
-            <FlatList
-                data={filteredCelebrities}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (
-                <View style={styles.card}>
-                    <Image source={item.image} style={styles.image} />
-                    <Text style={styles.name}>{item.name}</Text>
-                    <Text style={styles.role}>{item.role}</Text>
-                </View>
-                )}
-                numColumns={2}
-                columnWrapperStyle={styles.columnWrapper}
-            />
-        </SafeAreaView>
+      <SafeAreaView style={styles.container}>
+        <Text style={styles.title}>Celebrities</Text>
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Search Celebrities"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+        <FlatList
+          data={filteredCelebrities}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity style={styles.card} onPress={() => openCelebrityInfo(item)}>
+              <Image source={item.image} style={styles.image} />
+              <Text style={styles.name}>{item.name}</Text>
+              <Text style={styles.role}>{item.role}</Text>
+            </TouchableOpacity>
+          )}
+          numColumns={2}
+          columnWrapperStyle={styles.columnWrapper}
+        />
+      </SafeAreaView>
     </BlobBackground>
   );
 };
@@ -72,7 +145,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 20,
     backgroundColor: 'transparent',
-  },  
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
