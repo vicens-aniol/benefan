@@ -1,126 +1,71 @@
 import React, { useState } from 'react';
-import { Button, View, Text, StyleSheet, Image } from 'react-native';
-import BlobBackground from '../components/BlobBackground'; 
-import { TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType } from 'react-native';
+import BlobBackground from '../components/BlobBackground';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-// Definición de tipo para los componentes de pantalla
-type Screen = 'Carrousel' | 'Carrousel2' | 'Carrousel3' | 'navigateToSearch';
+// Define the types for the celebrity and screen state
+type Celebrity = {
+  id: string;
+  image: ImageSourcePropType;
+  name: string;
+  description: string;
+};
 
+type RootStackParamList = {
+  Carousel: undefined;
+  Search: undefined;
+};
 
-// Componente HomeScreen
-const HomeScreen: React.FC<{ navigateToCarrousel3: () => void }> = ({ navigateToCarrousel3 }) => (
-  <BlobBackground>
-  <View style={styles.container}>
-    <Image
-      source={require('../assets/IMG/Celebrities/TaylorSwift.png')}
-      style={styles.image}
-      resizeMode="cover"
-    />
-    <Text style={styles.header}>Taylor Swift</Text>
-    <Text style={styles.description}>
-      Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.
-    </Text>
-    <View>
-    <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCarrousel3}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
-    </View>
-  </View>
-  </BlobBackground>
-);
+type Screen = 'Carrousel1' | 'Carrousel2' | 'Carrousel3' | 'Search';
 
-// Componente Home2Screen
-const Home2Screen: React.FC<{ navigateToCarrousel1: () => void }> = ({ navigateToCarrousel1 }) => (
-  <BlobBackground>
-  <View style={styles.container}>
-    <Image
-      source={require('../assets/IMG/Celebrities/LionelMessi.png')}
-      style={styles.image}
-      resizeMode="cover"
-    />
-    <Text style={styles.header}>Lionel Messi</Text>
-    <Text style={styles.description}>
-      Lorem Ipsum is not just random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
-    </Text>
-    <View>
-    <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCarrousel1}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
-    </View>
-  </View>
-  </BlobBackground>
-);
+// Sample data for the celebrities
 
-// Componente Home3Screen
-const Home3Screen: React.FC<{ navigateToCarrousel2: () => void }> = ({ navigateToCarrousel2 }) => (
-  <BlobBackground>
-  <View style={styles.container}>
-    <Image
-      source={require('../assets/IMG/Celebrities/Eminem.png')}
-      style={styles.image}
-      resizeMode="cover"
-    />
-    <Text style={styles.header}>Eminem</Text>
-    <Text style={styles.description}>
-      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
-    </Text>
-    <View >
-      <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCarrousel2}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
-    </View>
-  </View>
-  </BlobBackground>
-);
+type CarouselNavigationProp = StackNavigationProp<RootStackParamList, 'Carousel'>;
+const celebData: Celebrity[] = [
+  { id: '1', image: require('../assets/IMG/Celebrities/TaylorSwift.png'), name: 'Taylor Swift', description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.' },
+  { id: '2', image: require('../assets/IMG/Celebrities/LionelMessi.png'), name: 'Lionel Messi', description: 'Lorem Ipsum is not just random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.' },
+  { id: '3', image: require('../assets/IMG/Celebrities/Eminem.png'), name: 'Eminem', description: 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type.' }
+];
 
-// Componente SearchCelebrity
-const SearchCelebrity: React.FC<{ navigateToSearch: () => void }> = ({ navigateToSearch }) => (
-  <BlobBackground>
-  <View style={styles.container}>
-    <Image
-      source={require('../assets/IMG/Celebrities/Eminem.png')}
-      style={styles.image}
-      resizeMode="cover"
-    />
-    <Text style={styles.header}>Eminem</Text>
-    <Text style={styles.description}>
-      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
-    </Text>
-    <View >
-      <TouchableOpacity style={styles.buttonContainer} onPress={navigateToSearch}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
-    </View>
-  </View>
-  </BlobBackground>
-);
+const CarouselPage: React.FC = () => {
+  const [currentScreen, setCurrentScreen] = useState<Screen>('Carrousel1');
+  const navigation = useNavigation<CarouselNavigationProp>();
 
-// Componente App que maneja la navegación
-const App: React.FC = () => {
-  const [currentScreen, setCurrentScreen] = useState<Screen>('Carrousel');
-
-  const navigateToCarrousel2 = () => setCurrentScreen('Carrousel2');
-  const navigateToCarrousel3 = () => setCurrentScreen('Carrousel3');
-  const navigateToCarrousel1 = () => setCurrentScreen('Carrousel');
-  const navigateToSearch = () => setCurrentScreen('navigateToSearch');
-
-  const renderScreen = () => {
-    switch (currentScreen) {
-      case 'Carrousel':
-        return <HomeScreen navigateToCarrousel3={navigateToCarrousel3} />;
-      case 'Carrousel2':
-        return <Home2Screen navigateToCarrousel1={navigateToCarrousel1} />;
-      case 'Carrousel3':
-        return <Home3Screen navigateToCarrousel2={navigateToCarrousel2} />;      
-      case 'navigateToSearch':
-        return <SearchCelebrity navigateToSearch={navigateToSearch} />;
-
+  const navigate = () => {
+    if (currentScreen === 'Carrousel3') {
+      navigation.navigate('Search');
+    } else {
+      const nextIndex = parseInt(currentScreen.slice(-1), 10) + 1;
+      setCurrentScreen(`Carrousel${nextIndex}` as Screen);
     }
   };
 
-  return <View style={styles.container}>{renderScreen()}</View>;
+  // Determine the index from the currentScreen for less redundancy
+  const index = parseInt(currentScreen.slice(-1), 10) - 1;
+  const celeb = celebData[index];
+
+  return (
+    <BlobBackground>
+      <View style={styles.container}>
+        <Image source={celeb.image} style={styles.image} resizeMode="cover" />
+        <Text style={styles.header}>{celeb.name}</Text>
+        <Text style={styles.description}>{celeb.description}</Text>
+        <TouchableOpacity style={styles.buttonContainer} onPress={navigate}>
+          <Text style={{ color: '#F5F5F5' }}>Next</Text>
+        </TouchableOpacity>
+      </View>
+    </BlobBackground>
+  );
 };
 
-// Estilos para la aplicación
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: 'transparent', // Transparent so the blobs can be seen
+    backgroundColor: 'transparent'
   },
   image: {
     width: 300,
@@ -131,7 +76,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     marginTop: 20,
-    maxHeight: 30, // Máxima altura del encabezado
   },
   description: {
     fontSize: 16,
@@ -141,13 +85,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   buttonContainer: {
-    backgroundColor: '#4D8D93', // Color de fondo del botón
-    borderRadius: 25,          // Bordes redondeados
-    paddingVertical: 10,       // Padding vertical
-    paddingHorizontal: 100,     // Padding horizontal
-    alignItems: 'center',      // Centra el texto horizontalmente
-    justifyContent: 'center',  // Centra el texto verticalmente
+    backgroundColor: '#4D8D93',
+    borderRadius: 25,
+    paddingVertical: 10,
+    paddingHorizontal: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
   }
 });
 
-export default App;
+export default CarouselPage;
