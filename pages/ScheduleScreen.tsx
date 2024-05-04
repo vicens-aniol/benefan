@@ -1,7 +1,23 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, SectionList, TouchableOpacity, Image } from 'react-native';
 import BlobBackground from '../components/BlobBackground'; 
+import FontAwesome from 'react-native-vector-icons/FontAwesome'; // Import from vector icons
 import commonStyles from '../styles/commonStyles';
+
+
+// navigation-types.d.ts (or any TypeScript file)
+import { StackNavigationProp } from '@react-navigation/stack';
+
+// Define a type for your stack navigator params
+type RootStackParamList = {
+  Schedule: undefined; // Replace with the screen's name and params
+  AnotherScreen: undefined; // Other screens in your navigation
+};
+
+// Define the specific navigation prop type
+type ScheduleScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Schedule'>;
+
+export type { ScheduleScreenNavigationProp, RootStackParamList };
 
 
 // Define a type for timeslot objects
@@ -55,10 +71,13 @@ const sections: SectionData[] = [
 
 
   
-  const ScheduleScreen: React.FC = () => {
-    // Track selected timeslots
-    const [selectedSlots, setSelectedSlots] = useState<string[]>([]);
-  
+ // Define the props of the ScheduleScreen
+interface ScheduleScreenProps {
+  navigation: ScheduleScreenNavigationProp;
+}
+
+const ScheduleScreen: React.FC<ScheduleScreenProps> = ({ navigation }) => {
+  const [selectedSlots, setSelectedSlots] = useState<string[]>([]);
     // Handle slot selection and toggling
     const handleSlotPress = (slot: Timeslot): void => {
       if (slot.available) {
@@ -143,6 +162,10 @@ const sections: SectionData[] = [
     return (
       <BlobBackground>
         <View style={styles.container}>
+          {/* Back Icon */}
+          <TouchableOpacity style={styles.backIcon} onPress={() => navigation.goBack()}>
+            <FontAwesome name="arrow-left" size={27} color="#666" />
+          </TouchableOpacity>
           <View style={styles.headerContainer}>
             <Image
               source={require('../assets/IMG/Celebrities/TaylorSwift.png')} // Adjust path as necessary
@@ -208,6 +231,12 @@ const styles = StyleSheet.create({
       paddingTop: 80, // Extra padding at the top
       paddingBottom: 40, // Extra padding at the bottom
       backgroundColor: 'transparent',
+    },
+    backIcon: {
+      position: 'absolute',
+      top: 60, // Adjust to fit your layout
+      left: 20, // Adjust to fit your layout
+      color: '#fff',
     },
     headerContainer: {
       alignItems: 'center',
