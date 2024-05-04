@@ -14,37 +14,46 @@ interface Timeslot {
 interface RowData {
     row: Timeslot[];
   }
-  
 
 interface SectionData {
     title: string;
     data: Timeslot[];
   }
   
-  // Create timeslots grouped into sections
-  const sections: SectionData[] = [
-    {
-      title: 'Afternoon',
-      data: [
-        { time: '1:00 AM', available: true },
-        { time: '1:30 AM', available: false },
-        { time: '2:00 AM', available: true },
-        { time: '2:30 AM', available: true },
-        { time: '3:00 AM', available: false },
-        { time: '3:30 AM', available: true },
-      ],
-    },
-    {
-      title: 'Evening',
-      data: [
-        { time: '5:00 PM', available: true },
-        { time: '5:30 PM', available: true },
-        { time: '6:00 PM', available: true },
-        { time: '6:30 PM', available: true },
-        { time: '7:00 PM', available: false },
-      ],
-    },
-  ];
+  // Function to generate a range of timeslots with unique entries
+const generateTimeSlots = (startHour: number, endHour: number, isAM: boolean): Timeslot[] => {
+  const slots: Timeslot[] = [];
+  for (let hour = startHour; hour < endHour; hour++) {
+    const formattedHour = hour === 0 ? 12 : hour % 12;
+    const suffix = isAM ? 'AM' : 'PM';
+    slots.push({ time: `${formattedHour}:00 ${suffix}`, available: true });
+    slots.push({ time: `${formattedHour}:30 ${suffix}`, available: true });
+  }
+  return slots;
+};
+
+// Generate morning, afternoon, evening, and night slots
+const morningSlots = generateTimeSlots(6, 12, true); // 6:00 AM - 12:00 PM
+const afternoonSlots = [
+  ...generateTimeSlots(0, 6, false) // 12:30 PM - 6:00 PM
+];
+const eveningSlots = generateTimeSlots(6, 9, false); // 6:00 PM - 9:00 PM
+const nightSlots = [
+  ...generateTimeSlots(9, 12, false), // 9:30 PM - 11:30 PM
+  { time: '12:00 AM', available: true } // Midnight
+];
+
+// Create sections without duplicates
+const sections: SectionData[] = [
+  { title: 'Morning', data: morningSlots },
+  { title: 'Afternoon', data: afternoonSlots },
+  { title: 'Evening', data: eveningSlots },
+  { title: 'Night', data: nightSlots }
+];
+
+
+
+
   
   const ScheduleScreen: React.FC = () => {
     // Track selected timeslots
@@ -145,46 +154,44 @@ interface SectionData {
   
           <Text style={styles.dateText}>23 February</Text>
           <SectionList
-  sections={transformedSections}
-  renderItem={({ item }: { item: RowData }) => (
-    <View style={styles.row}>
-      {item.row.map((slot) => {
-        const isSelected = selectedSlots.includes(slot.time);
-        const slotStyle = {
-          backgroundColor: slot.available ? (isSelected ? '#4D8D93' : '#ebebeb') : '#d6d4d4',
-          borderWidth: slot.available ? 1 : 1,
-          borderColor: slot.available ? '#4D8D93' : 'transparent',
-        };
-        const textStyle = {
-          color: slot.available ? (isSelected ? '#fff' : '#4D8D93') : '#999',
-        };
+            sections={transformedSections}
+            renderItem={({ item }: { item: RowData }) => (
+              <View style={styles.row}>
+                {item.row.map((slot) => {
+                  const isSelected = selectedSlots.includes(slot.time);
+                  const slotStyle = {
+                    backgroundColor: slot.available ? (isSelected ? '#4D8D93' : '#ebebeb') : '#d6d4d4',
+                    borderWidth: slot.available ? 1 : 1,
+                    borderColor: slot.available ? '#4D8D93' : 'transparent',
+                  };
+                  const textStyle = {
+                    color: slot.available ? (isSelected ? '#fff' : '#4D8D93') : '#999',
+                  };
 
-        return (
-          <TouchableOpacity
-            key={slot.time}
-            style={[styles.timeslotButton, slotStyle]}
-            onPress={() => handleSlotPress(slot)}
-            disabled={!slot.available}
-          >
-            <Text style={[styles.timeslotText, textStyle]}>{slot.time}</Text>
-          </TouchableOpacity>
-        );
-      })}
-    </View>
-  )}
-  renderSectionHeader={({ section: { title } }) => (
-    <Text style={styles.sectionHeader}>{title}</Text>
-  )}
-  keyExtractor={(item, index) => index.toString()}
-  contentContainerStyle={styles.timeslotContainer}
-  showsVerticalScrollIndicator={false}
-/>
-
-
-
+                  return (
+                    <TouchableOpacity
+                      key={slot.time}
+                      style={[styles.timeslotButton, slotStyle]}
+                      onPress={() => handleSlotPress(slot)}
+                      disabled={!slot.available}
+                    >
+                      <Text style={[styles.timeslotText, textStyle]}>{slot.time}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
+            )}
+          renderSectionHeader={({ section: { title } }) => (
+            <Text style={styles.sectionHeader}>{title}</Text>
+          )}
+          keyExtractor={(item, index) => index.toString()}
+          contentContainerStyle={styles.timeslotContainer}
+          showsVerticalScrollIndicator={false}
+          stickySectionHeadersEnabled={true}
+        />
   
           <TouchableOpacity style={commonStyles.buttonContainer_rounded}>
-            <Text style={commonStyles.boldlabelforbutton}>Send Timetable</Text>
+            <Text style={commonStyles.boldlabelforbutton}>Select this timetable</Text>
           </TouchableOpacity>
         </View>
       </BlobBackground>
