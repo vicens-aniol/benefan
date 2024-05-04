@@ -40,6 +40,9 @@ const App = () => {
         <Tab.Screen
           name="Carrousel"
           component={CarrouselPage}
+          options={{
+            headerShown: false, // Disable the header for this tab
+          }}
           />
       </Tab.Navigator>
 

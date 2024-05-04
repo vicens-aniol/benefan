@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { Button, View, Text, StyleSheet, Image, Touchable } from 'react-native';
+import { Button, View, Text, StyleSheet, Image } from 'react-native';
+import BlobBackground from '../components/BlobBackground'; 
 import { TouchableOpacity } from 'react-native';
 
 // Definición de tipo para los componentes de pantalla
 type Screen = 'Carrousel' | 'Carrousel2' | 'Carrousel3' | 'navigateToSearch';
 
+
 // Componente HomeScreen
 const HomeScreen: React.FC<{ navigateToCarrousel3: () => void }> = ({ navigateToCarrousel3 }) => (
+  <BlobBackground>
   <View style={styles.container}>
     <Image
       source={require('../assets/IMG/Celebrities/TaylorSwift.png')}
@@ -21,10 +24,12 @@ const HomeScreen: React.FC<{ navigateToCarrousel3: () => void }> = ({ navigateTo
     <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCarrousel3}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
     </View>
   </View>
+  </BlobBackground>
 );
 
 // Componente Home2Screen
 const Home2Screen: React.FC<{ navigateToCarrousel1: () => void }> = ({ navigateToCarrousel1 }) => (
+  <BlobBackground>
   <View style={styles.container}>
     <Image
       source={require('../assets/IMG/Celebrities/LionelMessi.png')}
@@ -39,13 +44,15 @@ const Home2Screen: React.FC<{ navigateToCarrousel1: () => void }> = ({ navigateT
     <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCarrousel1}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
     </View>
   </View>
+  </BlobBackground>
 );
 
 // Componente Home3Screen
 const Home3Screen: React.FC<{ navigateToCarrousel2: () => void }> = ({ navigateToCarrousel2 }) => (
+  <BlobBackground>
   <View style={styles.container}>
     <Image
-      source={require('../assets/IMG/Celebrities/Eminem.png')}
+      source={require('../assets/IMG/Celebrities/TaylorSwift.png')}
       style={styles.image}
       resizeMode="cover"
     />
@@ -53,10 +60,11 @@ const Home3Screen: React.FC<{ navigateToCarrousel2: () => void }> = ({ navigateT
     <Text style={styles.description}>
       Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
     </Text>
-    <View >
-      <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCarrousel2}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
+    <View style={styles.buttonContainer}>
+      <Button title="Ir a otra pantalla" onPress={navigateToCarrousel2} color="#4D8D93" />
     </View>
   </View>
+  </BlobBackground>
 );
 
 // Componente SearchCelebrity
@@ -75,6 +83,7 @@ const SearchCelebrity: React.FC<{ navigateToSearch: () => void }> = ({ navigateT
       <TouchableOpacity style={styles.buttonContainer} onPress={navigateToSearch}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
     </View>
   </View>
+  </BlobBackground>
 );
 
 // Componente App que maneja la navegación
@@ -110,7 +119,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent', // Transparent so the blobs can be seen
   },
   image: {
     width: 300,
@@ -137,8 +146,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 100,     // Padding horizontal
     alignItems: 'center',      // Centra el texto horizontalmente
     justifyContent: 'center',  // Centra el texto verticalmente
-  },
-
+  }
 });
 
 export default App;
