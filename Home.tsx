@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from "react-native";
 import ButtonAniol from "./components/Button";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
-export default function App() {
+export default function Home() {
   const [text, setText] = useState<string>("Hello Home");
 
   const onPress = () => {
