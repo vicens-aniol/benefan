@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Button, View, Text, StyleSheet, Image } from 'react-native';
+import BlobBackground from '../components/BlobBackground'; 
 
 // Definición de tipo para los componentes de pantalla
 type Screen = 'Carrousel' | 'Carrousel2' | 'Carrousel3';
 
+
 // Componente HomeScreen
 const HomeScreen: React.FC<{ navigateToCarrousel3: () => void }> = ({ navigateToCarrousel3 }) => (
+  <BlobBackground>
   <View style={styles.container}>
     <Image
       source={require('../assets/IMG/Celebrities/TaylorSwift.png')}
@@ -20,10 +23,12 @@ const HomeScreen: React.FC<{ navigateToCarrousel3: () => void }> = ({ navigateTo
       <Button title="Ir a otra pantalla" onPress={navigateToCarrousel3} color="#4D8D93" />
     </View>
   </View>
+  </BlobBackground>
 );
 
 // Componente Home2Screen
 const Home2Screen: React.FC<{ navigateToCarrousel1: () => void }> = ({ navigateToCarrousel1 }) => (
+  <BlobBackground>
   <View style={styles.container}>
     <Image
       source={require('../assets/IMG/Celebrities/TaylorSwift.png')}
@@ -38,10 +43,12 @@ const Home2Screen: React.FC<{ navigateToCarrousel1: () => void }> = ({ navigateT
       <Button title="Ir a otra pantalla" onPress={navigateToCarrousel1} color="#4D8D93" />
     </View>
   </View>
+  </BlobBackground>
 );
 
 // Componente Home3Screen
 const Home3Screen: React.FC<{ navigateToCarrousel2: () => void }> = ({ navigateToCarrousel2 }) => (
+  <BlobBackground>
   <View style={styles.container}>
     <Image
       source={require('../assets/IMG/Celebrities/TaylorSwift.png')}
@@ -56,6 +63,7 @@ const Home3Screen: React.FC<{ navigateToCarrousel2: () => void }> = ({ navigateT
       <Button title="Ir a otra pantalla" onPress={navigateToCarrousel2} color="#4D8D93" />
     </View>
   </View>
+  </BlobBackground>
 );
 
 // Componente App que maneja la navegación
@@ -89,7 +97,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent', // Transparent so the blobs can be seen
   },
   image: {
     width: 300,
@@ -112,6 +120,19 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 10,
   },
+  blob: {
+    position: 'absolute',
+    width: 200,
+    height: 200,
+  },
+  blobTopLeft: {
+    top: -50,
+    left: -50,
+  },
+  blobBottomRight: {
+    bottom: -50,
+    right: -50,
+  }
 });
 
 export default App;
