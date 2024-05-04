@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import ButtonAniol from "./components/Button";
+import ButtonAniol from "../components/Button";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
 export default function Home() {
@@ -19,7 +19,7 @@ export default function Home() {
   }, []);
 
   return (
-    <View className="flex-1 items-center justify-center">
+    <View>
       <ButtonAniol
         title="Home tab button"
         onPress={onPress}
