@@ -2,13 +2,19 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
+import Carrousel from "./pages/Carrousel";
+import Carrousel2 from "./pages/Carrousel2";
+import Carrousel3 from "./pages/Carrousel3";
 import { useState, useEffect } from "react";
 import { supabase } from "./lib/supabase";
 import Auth from "./components/Auth";
 import { Session } from "@supabase/supabase-js";
 import { View, Text } from "react-native";
+import { createStackNavigator } from '@react-navigation/stack';
+import CarrouselPage from "./pages/CarrouselPage";
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
 
 const App = () => {
   const [session, setSession] = useState<Session | null>(null);
@@ -29,12 +35,17 @@ const App = () => {
         <Tab.Screen
           name="Home"
           component={Home}
-        />
+          />
         <Tab.Screen
           name="Details"
           component={Details}
-        />
+          />
+        <Tab.Screen
+          name="Carrousel"
+          component={CarrouselPage}
+          />
       </Tab.Navigator>
+
     </NavigationContainer>
   ) : (
     <Auth />
