@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Button, View, Text, StyleSheet, Image } from 'react-native';
+import { Button, View, Text, StyleSheet, Image, Touchable } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 // Definición de tipo para los componentes de pantalla
-type Screen = 'Carrousel' | 'Carrousel2' | 'Carrousel3';
+type Screen = 'Carrousel' | 'Carrousel2' | 'Carrousel3' | 'navigateToSearch';
 
 // Componente HomeScreen
 const HomeScreen: React.FC<{ navigateToCarrousel3: () => void }> = ({ navigateToCarrousel3 }) => (
@@ -12,12 +13,12 @@ const HomeScreen: React.FC<{ navigateToCarrousel3: () => void }> = ({ navigateTo
       style={styles.image}
       resizeMode="cover"
     />
-    <Text style={styles.header}>Find Trusted Doctors</Text>
+    <Text style={styles.header}>Taylor Swift</Text>
     <Text style={styles.description}>
       Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.
     </Text>
-    <View style={styles.buttonContainer}>
-      <Button title="Ir a otra pantalla" onPress={navigateToCarrousel3} color="#4D8D93" />
+    <View>
+    <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCarrousel3}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
     </View>
   </View>
 );
@@ -26,16 +27,16 @@ const HomeScreen: React.FC<{ navigateToCarrousel3: () => void }> = ({ navigateTo
 const Home2Screen: React.FC<{ navigateToCarrousel1: () => void }> = ({ navigateToCarrousel1 }) => (
   <View style={styles.container}>
     <Image
-      source={require('../assets/IMG/Celebrities/TaylorSwift.png')}
+      source={require('../assets/IMG/Celebrities/LionelMessi.png')}
       style={styles.image}
       resizeMode="cover"
     />
-    <Text style={styles.header}>Comprehensive Medical Care</Text>
+    <Text style={styles.header}>Lionel Messi</Text>
     <Text style={styles.description}>
       Lorem Ipsum is not just random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.
     </Text>
-    <View style={styles.buttonContainer}>
-      <Button title="Ir a otra pantalla" onPress={navigateToCarrousel1} color="#4D8D93" />
+    <View>
+    <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCarrousel1}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
     </View>
   </View>
 );
@@ -44,16 +45,34 @@ const Home2Screen: React.FC<{ navigateToCarrousel1: () => void }> = ({ navigateT
 const Home3Screen: React.FC<{ navigateToCarrousel2: () => void }> = ({ navigateToCarrousel2 }) => (
   <View style={styles.container}>
     <Image
-      source={require('../assets/IMG/Celebrities/TaylorSwift.png')}
+      source={require('../assets/IMG/Celebrities/Eminem.png')}
       style={styles.image}
       resizeMode="cover"
     />
-    <Text style={styles.header}>Specialist Consultations</Text>
+    <Text style={styles.header}>Eminem</Text>
     <Text style={styles.description}>
       Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
     </Text>
-    <View style={styles.buttonContainer}>
-      <Button title="Ir a otra pantalla" onPress={navigateToCarrousel2} color="#4D8D93" />
+    <View >
+      <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCarrousel2}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
+    </View>
+  </View>
+);
+
+// Componente SearchCelebrity
+const SearchCelebrity: React.FC<{ navigateToSearch: () => void }> = ({ navigateToSearch }) => (
+  <View style={styles.container}>
+    <Image
+      source={require('../assets/IMG/Celebrities/Eminem.png')}
+      style={styles.image}
+      resizeMode="cover"
+    />
+    <Text style={styles.header}>Eminem</Text>
+    <Text style={styles.description}>
+      Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
+    </Text>
+    <View >
+      <TouchableOpacity style={styles.buttonContainer} onPress={navigateToSearch}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
     </View>
   </View>
 );
@@ -65,6 +84,7 @@ const App: React.FC = () => {
   const navigateToCarrousel2 = () => setCurrentScreen('Carrousel2');
   const navigateToCarrousel3 = () => setCurrentScreen('Carrousel3');
   const navigateToCarrousel1 = () => setCurrentScreen('Carrousel');
+  const navigateToSearch = () => setCurrentScreen('navigateToSearch');
 
   const renderScreen = () => {
     switch (currentScreen) {
@@ -73,9 +93,10 @@ const App: React.FC = () => {
       case 'Carrousel2':
         return <Home2Screen navigateToCarrousel1={navigateToCarrousel1} />;
       case 'Carrousel3':
-        return <Home3Screen navigateToCarrousel2={navigateToCarrousel2} />;
-      default:
-        return <HomeScreen navigateToCarrousel3={navigateToCarrousel3} />;
+        return <Home3Screen navigateToCarrousel2={navigateToCarrousel2} />;      
+      case 'navigateToSearch':
+        return <SearchCelebrity navigateToSearch={navigateToSearch} />;
+
     }
   };
 
@@ -110,8 +131,14 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   buttonContainer: {
-    marginTop: 10,
+    backgroundColor: '#4D8D93', // Color de fondo del botón
+    borderRadius: 25,          // Bordes redondeados
+    paddingVertical: 10,       // Padding vertical
+    paddingHorizontal: 100,     // Padding horizontal
+    alignItems: 'center',      // Centra el texto horizontalmente
+    justifyContent: 'center',  // Centra el texto verticalmente
   },
+
 });
 
 export default App;
