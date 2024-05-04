@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Details from './pages/Details';
 import CarouselPage from './pages/CarrouselPage';
 import SearchScreen from './pages/SearchScreen';
+import ScheduleScreen from './pages/ScheduleScreen';
 import Auth from './components/Auth';
 import { supabase } from './lib/supabase';
 import { Session } from '@supabase/supabase-js';
@@ -75,7 +76,7 @@ const App = () => {
       >
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="CarouselStack" component={CarouselStackScreen} options={{ headerShown: false }} />
-        <Tab.Screen name="Details" component={Details} />
+        <Tab.Screen name="Details" component={ScheduleScreen} options={{ headerShown: false }}  />
       </Tab.Navigator>
     </NavigationContainer>
   ) : (

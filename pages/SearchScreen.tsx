@@ -29,7 +29,11 @@ const celebrities: Celebrity[] = [
   { id: '5', name: 'Beyoncé', role: 'Singer', image: beyonceImage },
   { id: '6', name: 'Drake', role: 'Rapper', image: drakeImage },
   { id: '7', name: 'Shakira', role: 'Singer', image: shakiraImage },
-  { id: '8', name: 'Jennifer Lopez', role: 'Singer', image: jLoImage }
+  { id: '8', name: 'Jennifer Lopez', role: 'Singer', image: jLoImage },
+  { id: '9', name: 'Aniol Vicens', role: 'Singer?', image: shakiraImage },
+  { id: '10', name: 'Marc Mallol', role: 'Obviously designer', image: shakiraImage },
+  { id: '11', name: 'Oriol Pont', role: 'it depends', image: shakiraImage },
+  { id: '12', name: 'Josep Roura', role: 'Driver', image: shakiraImage },
 ];
 
 const SearchScreen: React.FC = () => {
