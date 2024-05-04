@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Alert, StyleSheet, View, Text, ImageBackground, Image, TouchableOpacity } from "react-native";
 import { supabase } from "../lib/supabase";
 import { Button, Input } from "react-native-elements";
+import commonStyles from '../styles/commonStyles';
+
 
 export default function Auth() {
   const [email, setEmail] = useState("");
@@ -40,7 +42,7 @@ export default function Auth() {
       <Text />
       <View>
         <View style={styles.group442}>
-          <Text style={styles.welcomeBack}>Welcome </Text>
+          <Text style={commonStyles.header}>Welcome </Text>
         </View>
       </View>
       <View style={styles.container}>
@@ -60,7 +62,7 @@ export default function Auth() {
             value={email}
             placeholder="email@address.com"
             autoCapitalize={"none"}
-            style={styles.EmailInput}
+            style={commonStyles.description_left}
             />
           </View>
 
@@ -74,18 +76,18 @@ export default function Auth() {
             secureTextEntry={true}
             placeholder="Password"
             autoCapitalize={"none"}
-            style={styles.EmailInput}
+            style={commonStyles.description_left}
           />
         </View>   
         <View style={[styles.container,styles.mt20]}>
           <View style={[styles.rectangleContainer, styles.mt20]}>
             <TouchableOpacity style={[styles.rectangleButton]} onPress={() => signInWithEmail()}>
-              <Text style={styles.textContainer}>Sign In</Text>
+              <Text style={commonStyles.textContainer}>Sign In</Text>
             </TouchableOpacity>
         </View>
         <View style={[styles.rectangleContainer, styles.mt10]}>
           <TouchableOpacity style={[styles.rectangleButton]} onPress={() => signInWithEmail()}>
-            <Text style={styles.textContainer}>Sign Up</Text>
+            <Text style={commonStyles.textContainer}>Sign Up</Text>
           </TouchableOpacity>
         </View>
         </View>
@@ -103,19 +105,8 @@ const styles = StyleSheet.create({
     paddingBottom: 50, // Separate from the bottom
     paddingHorizontal:50,
   },
-  textContainer: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 20, // Increased font size
-    lineHeight: 54, // Aligns text vertically within the container
-  },
   group442: {
     alignItems: "center",
-  },
-  welcomeBack: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 10,
   },
   youCanSearchCourseAp: {
     textAlign: "center",
