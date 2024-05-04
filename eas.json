@@ -2,18 +2,15 @@
   "cli": {
     "version": ">= 8.0.0"
   },
-  
   "build": {
     "development": {
-      "env": {
-        "EXPO_PUBLIC_SUPABASE_URL": "https://dlcefbzlywwgdxwewdhp.supabase.co"
-      }
+      "developmentClient": true,
+      "distribution": "internal"
     },
-    "production": {
-      "env": {
-        "EXPO_PUBLIC_SUPABASE_URL": "https://dlcefbzlywwgdxwewdhp.supabase.co"
-      }
-    }
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {}
   },
   "submit": {
     "production": {}
