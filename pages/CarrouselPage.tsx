@@ -52,7 +52,7 @@ const Home3Screen: React.FC<{ navigateToCarrousel2: () => void }> = ({ navigateT
   <BlobBackground>
   <View style={styles.container}>
     <Image
-      source={require('../assets/IMG/Celebrities/TaylorSwift.png')}
+      source={require('../assets/IMG/Celebrities/Eminem.png')}
       style={styles.image}
       resizeMode="cover"
     />
@@ -60,8 +60,8 @@ const Home3Screen: React.FC<{ navigateToCarrousel2: () => void }> = ({ navigateT
     <Text style={styles.description}>
       Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type.
     </Text>
-    <View style={styles.buttonContainer}>
-      <Button title="Ir a otra pantalla" onPress={navigateToCarrousel2} color="#4D8D93" />
+    <View >
+      <TouchableOpacity style={styles.buttonContainer} onPress={navigateToCarrousel2}><Text style={{color: '#F5F5F5'}}>Next</Text></TouchableOpacity>
     </View>
   </View>
   </BlobBackground>
