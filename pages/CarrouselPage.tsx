@@ -115,6 +115,7 @@ const App: React.FC = () => {
   return <View style={styles.container}>{renderScreen()}</View>;
 };
 
+
 // Estilos para la aplicación
 const styles = StyleSheet.create({
   container: {
