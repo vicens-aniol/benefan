@@ -118,8 +118,8 @@ const styles = StyleSheet.create({
   },
   rectangleContainer: {
     position: "absolute",
-    top: 10,
-    left: 10,
+    top: 20,
+    left: 20,
   },
   textContainer: {
     color: "#fff",
@@ -212,6 +212,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,
+    marginRight:30,
   },
   arrow: {
     fontSize: 12,
@@ -245,6 +246,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#f0f0f0",
     padding: 20,
     borderRadius: 8,
+    paddingLeft: 20,
   },
   dateText: {
     fontSize: 16,
