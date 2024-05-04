@@ -69,6 +69,7 @@ const Home3Screen: React.FC<{ navigateToCarrousel2: () => void }> = ({ navigateT
 
 // Componente SearchCelebrity
 const SearchCelebrity: React.FC<{ navigateToSearch: () => void }> = ({ navigateToSearch }) => (
+  <BlobBackground>
   <View style={styles.container}>
     <Image
       source={require('../assets/IMG/Celebrities/Eminem.png')}
