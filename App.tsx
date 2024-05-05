@@ -30,8 +30,8 @@ const CarouselStack = createStackNavigator<RootStackParamList>();
 function CarouselStackScreen() {
   return (
     <CarouselStack.Navigator>
-      <CarouselStack.Screen name="Carousel" component={CarouselPage} options={{ headerShown: false }} />
-      <CarouselStack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
+      <CarouselStack.Screen name="Carousel" component={CarouselPage} options={{ headerShown: false, gestureEnabled:false}} />
+      <CarouselStack.Screen name="Search" component={SearchScreen} options={{ headerShown: false, gestureEnabled:false }} />
       <CarouselStack.Screen name="CelebrityInfo" component={CelebrityInfo} options={{ headerShown: false }} />
     </CarouselStack.Navigator>
   );
