@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Alert, StyleSheet, View, Text, ImageBackground, Image, TouchableOpacity } from "react-native";
 import { supabase } from "../lib/supabase";
 import { Button, Input } from "react-native-elements";
+import commonStyles from '../styles/commonStyles';
+import BlobBackground from "./BlobBackground";
+
 
 export default function Auth() {
   const [email, setEmail] = useState("");
@@ -36,11 +39,12 @@ export default function Auth() {
   }
 
   return (
+    <BlobBackground>
     <View style={styles.container}>
       <Text />
       <View>
         <View style={styles.group442}>
-          <Text style={styles.welcomeBack}>Welcome </Text>
+          <Text style={commonStyles.header}>Welcome </Text>
         </View>
       </View>
       <View style={styles.container}>
@@ -60,7 +64,7 @@ export default function Auth() {
             value={email}
             placeholder="email@address.com"
             autoCapitalize={"none"}
-            style={styles.EmailInput}
+            style={commonStyles.description_left}
             />
           </View>
 
@@ -74,23 +78,24 @@ export default function Auth() {
             secureTextEntry={true}
             placeholder="Password"
             autoCapitalize={"none"}
-            style={styles.EmailInput}
+            style={commonStyles.description_left}
           />
         </View>   
         <View style={[styles.container,styles.mt20]}>
           <View style={[styles.rectangleContainer, styles.mt20]}>
             <TouchableOpacity style={[styles.rectangleButton]} onPress={() => signInWithEmail()}>
-              <Text style={styles.textContainer}>Sign In</Text>
+              <Text style={commonStyles.textContainer}>Sign In</Text>
             </TouchableOpacity>
         </View>
         <View style={[styles.rectangleContainer, styles.mt10]}>
           <TouchableOpacity style={[styles.rectangleButton]} onPress={() => signInWithEmail()}>
-            <Text style={styles.textContainer}>Sign Up</Text>
+            <Text style={commonStyles.textContainer}>Sign Up</Text>
           </TouchableOpacity>
         </View>
         </View>
       </View>
     </View>
+    </BlobBackground>
   );
 }
 
@@ -103,19 +108,8 @@ const styles = StyleSheet.create({
     paddingBottom: 50, // Separate from the bottom
     paddingHorizontal:50,
   },
-  textContainer: {
-    color: '#fff',
-    textAlign: 'center',
-    fontSize: 20, // Increased font size
-    lineHeight: 54, // Aligns text vertically within the container
-  },
   group442: {
     alignItems: "center",
-  },
-  welcomeBack: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 10,
   },
   youCanSearchCourseAp: {
     textAlign: "center",
@@ -156,7 +150,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    paddingHorizontal: 20,
+    paddingHorizontal: 15,
     borderWidth: 1,
     borderColor: "rgba(12, 25, 29, 0.16)",
     borderRadius: 12,
@@ -181,7 +175,7 @@ const styles = StyleSheet.create({
     height: 180,
   },
   Rectangle42: {
-    width: 295,
+    width: 85,
     height: 54,
     borderRadius: 12,
     backgroundColor: "rgba(77,141,147,1)",
