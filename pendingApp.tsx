@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+/* import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -7,12 +7,10 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import Home from './pages/Home';
 import Details from './pages/Details';
+import YourCelebrities from './pages/YourCelebrities';
 import CarouselPage from './pages/CarouselPage';
 import SearchScreen from './pages/SearchScreen';
 import CelebrityInfo from './pages/CelebrityInfo';
-import YourCelebrities from './pages/YourCelebrities';
-
-
 import ScheduleScreen from './pages/ScheduleScreen';
 import CountdownTimerPage from './pages/CountdownTimerPage';
 
@@ -27,7 +25,13 @@ const screenWidth = Dimensions.get('window').width;
 type RootStackParamList = {
   Carousel: undefined;
   Search: undefined;
-  CelebrityInfo: undefined;
+  CelebrityInfo: {
+    name: string;
+    role: string;
+    image: any; // Adjust as needed for TypeScript
+    date: string;
+    description: string;
+  };
 };
 
 // Create navigation stacks
@@ -69,7 +73,7 @@ function RegularUserTabs() {
     >
       <TabRegular.Screen name="Home" component={CarouselStackScreen} options={{ headerShown: false }} />
       <TabRegular.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
-      <TabRegular.Screen name="Details" component={YourCelebrities} options={{ headerShown: false }} />
+      <TabRegular.Screen name="Details" component={CountdownTimerPage} options={{ headerShown: false }} />
     </TabRegular.Navigator>
   );
 }
@@ -183,3 +187,4 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+ */

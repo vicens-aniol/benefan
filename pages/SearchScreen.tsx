@@ -103,7 +103,7 @@ const SearchScreen: React.FC = () => {
   );
 
   const openCelebrityInfo = (celebrity: Celebrity) => {
-    navigation.navigate('YourCelebrities', {
+    navigation.navigate('CelebrityInfo', {
       name: celebrity.name,
       role: celebrity.role,
       image: celebrity.image,
