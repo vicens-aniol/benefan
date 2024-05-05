@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16,
     color: '#666',
-    textAlign: 'center',
+    textAlign: 'left',
     marginTop: 10,
     marginBottom: 20,
   },
