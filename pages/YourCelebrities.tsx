@@ -281,7 +281,6 @@ const styles = StyleSheet.create({
     color: "rgba(0,0,0,1)",
     fontSize: 14,
     lineHeight: 14,
-    fontFamily: "Rubik, sans-serif",
     fontWeight: "500",
   },
   Singer: {
