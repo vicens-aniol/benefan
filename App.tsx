@@ -60,6 +60,8 @@ const App: React.FC = () => {
     });
   }, []);
 
+  const Tab = createBottomTabNavigator();
+
   return (
     <NavigationContainer>
       <Tab.Navigator
