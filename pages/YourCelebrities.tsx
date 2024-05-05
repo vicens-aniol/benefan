@@ -45,7 +45,7 @@ const YourCelebrities = ({ navigation }: YourCelebritiesProps) => {
   ];
 
 const handleCallPress = (celebrity: Celebrity) => {
-  navigation.navigate('Calls', { roomCallId: "benefan_room_1" });
+  navigation.navigate('Calls', { roomCallId: "benefan_room_2" });
 };
 
 

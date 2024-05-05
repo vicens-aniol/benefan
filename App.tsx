@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
+
 import Home from './pages/Home';
 import Details from './pages/Details';
 import CarouselPage from './pages/CarouselPage';
@@ -12,6 +13,7 @@ import SearchScreen from './pages/SearchScreen';
 import CelebrityInfo from './pages/CelebrityInfo';
 import YourCelebrities from './pages/YourCelebrities';
 import Calls from './pages/Calls'
+import {CallScreen} from './pages/CallScreen'
 
 
 import ScheduleScreen from './pages/ScheduleScreen';
@@ -40,12 +42,12 @@ const CarouselStack = createStackNavigator<RootStackParamList>();
 function CarouselStackScreen() {
   return (
     <CarouselStack.Navigator>
-      <CarouselStack.Screen name="Carousel" component={CarouselPage} options={{ headerShown: false }} />
-      <CarouselStack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
+      <CarouselStack.Screen name="Carousel" component={CarouselPage} options={{ headerShown: false, gestureEnabled:false }} />
+      <CarouselStack.Screen name="Search" component={SearchScreen} options={{ headerShown: false, gestureEnabled:false }} />
       <CarouselStack.Screen name="CelebrityInfo" component={CelebrityInfo} options={{ headerShown: false }} />
       <CarouselStack.Screen name="Calls" component={Calls} options={{ headerShown: false }} />
       
-      <CarouselStack.Screen name="ScheduleScreen" component={ScheduleScreen} options={{ headerShown: false }} />
+      <CarouselStack.Screen name="ScheduleScreen" component={ScheduleScreen} options={{ headerShown: false, gestureEnabled:false }} />
       <CarouselStack.Screen name="CountdownTimerPage" component={CountdownTimerPage} options={{ headerShown: false }} />
     </CarouselStack.Navigator>
   );
@@ -110,7 +112,7 @@ function CelebrityUserTabs() {
     >
       <TabCelebrity.Screen name="Home" component={CarouselStackScreen} options={{ headerShown: false }} />
       <TabCelebrity.Screen name="MySchedule" component={ScheduleScreen} options={{ headerShown: false }} />
-      <TabCelebrity.Screen name="Countdown" component={CountdownTimerPage} options={{ headerShown: false }} />
+      <TabCelebrity.Screen name="Call" component={Calls} options={{ headerShown: false }} />
     </TabCelebrity.Navigator>
   );
 }

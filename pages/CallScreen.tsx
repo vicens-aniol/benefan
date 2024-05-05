@@ -25,7 +25,7 @@ export const CallScreen = ({
   session,
 }: Props) => {
   const [call, setCall] = React.useState<Call | null>(null);
-  const [timer, setTimer] = React.useState(30);
+  const [timer, setTimer] = React.useState(60);
 
   const client = useStreamVideoClient();
 

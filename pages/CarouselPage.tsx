@@ -48,16 +48,16 @@ type RootStackParamList = {
 type Screen = 'Carrousel1' | 'Carrousel2' | 'Carrousel3' | 'Search' | 'CelebrityInfo';
 
 // Sample data for the celebrities
-type CarrouselNavigationProp = StackNavigationProp<RootStackParamList, 'Carousel'>;
+type CarouselNavigationProp = StackNavigationProp<RootStackParamList, 'Carousel'>;
 const celebData: Celebrity[] = [
-  { id: '1', image: require('../assets/IMG/Celebrities/TaylorSwift.png'), name: 'Taylor Swift', description: 'Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC.' },
-  { id: '2', image: require('../assets/IMG/Celebrities/LionelMessi.png'), name: 'Lionel Messi', description: 'Lorem Ipsum is not just random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old.' },
-  { id: '3', image: require('../assets/IMG/Celebrities/Eminem.png'), name: 'Eminem', description: 'Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type.' }
+  { id: '1', image: require('../assets/meetgreat.png'), name: 'Benefan', description: "Introducing 'Benefan,' the app revolutionizing fan-celebrity interactions. Through exclusive meet-and-greets via video calls, fans connect with stars while supporting charity" },
+  { id: '2', image: require('../assets/elephantgood2.png'), name: 'Benefan', description: 'Each month, themed events align with causes, amplifying donations impact' },
+  { id: '3', image: require('../assets/elephantgood3.png'), name: 'Benefan', description:"This month, 'Benefan' focuses on Parkinson's, raising funds and awareness." }
 ];
 
 const CarouselPage: React.FC = () => {
   const [currentScreen, setCurrentScreen] = useState<Screen>('Carrousel1');
-  const navigation = useNavigation<CarrouselNavigationProp>();
+  const navigation = useNavigation<CarouselNavigationProp>();
 
   const navigate = () => {
     if (currentScreen === 'Carrousel3') {
@@ -75,7 +75,7 @@ const CarouselPage: React.FC = () => {
   return (
     <BlobBackground>
       <View style={styles.container}>
-        <TouchableOpacity style={styles.logoutIcon} onPress={confirmSignOut}>
+      <TouchableOpacity style={styles.logoutIcon} onPress={confirmSignOut}>
           <FontAwesome name="power-off" size={27} color="#666" />
         </TouchableOpacity>
         <Image source={celeb.image} style={styles.image} resizeMode="cover" />
@@ -87,7 +87,7 @@ const CarouselPage: React.FC = () => {
       </View>
     </BlobBackground>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {

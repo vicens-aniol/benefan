@@ -26,8 +26,8 @@ type CallsRouteProp = RouteProp<RootStackParamList, 'Calls'>;
 
 export default function Calls() {
 
-    const route = useRoute<CallsRouteProp>();
-  const { roomCallId } = route.params;
+  const route = useRoute<CallsRouteProp>();
+  const { roomCallId } = route?.params ?? '';
 
   const [session, setSession] = useState<Session | null>(null);
   useEffect(() => {
@@ -169,6 +169,23 @@ export default function Calls() {
   const [canEnterCall, setCanEnterCall] = useState<boolean>(false);
   const [inTheQueue, setInTheQueue] = useState<boolean>(false);
 
+  async function isCelebrity() {
+    if (session?.user?.id) {
+      const { data, error } = await supabase
+        .from("user_public")
+        .select("is_celebrity")
+        .eq("user_id", session?.user?.id);
+
+      if (error) {
+        console.error("Error fetching user:", error.message);
+        return;
+      } else {
+        console.log(data);
+        return data[0].is_celebrity;
+      }
+    }
+  }
+
   useEffect(() => {
     setCanEnterCall(
       queueInfo.queue &&
@@ -184,6 +201,17 @@ export default function Calls() {
     console.log(canEnterCall);
     console.log(session?.user);
   }, [queueInfo]);
+
+
+  useEffect(()=> {
+    isCelebrity().then((isCelebrity) => {
+      if (isCelebrity) {
+        setCanEnterCall(true);
+        setInTheQueue(false);
+      }
+    });
+    console.log(isCelebrity());
+  }, [session])
 
   return (
     <StreamVideo client={client}>
