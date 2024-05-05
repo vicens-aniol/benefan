@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "benefan",
+    "slug": "benefan",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/appicon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/LoadPage.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.uripont.benefan"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/appicon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.uripont.benefan"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c21264bc-3d7a-47e3-adad-6b79c6b4f1f1"
+      }
+    }
+  }
+}
