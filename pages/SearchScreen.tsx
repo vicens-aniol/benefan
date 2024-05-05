@@ -34,7 +34,14 @@ const celebrities: Celebrity[] = [
   { id: '9', name: 'Aniol Vicens', role: 'Singer?', image: placeholderImage },
   { id: '10', name: 'Marc Mallol', role: 'Obviously designer', image: placeholderImage },
   { id: '11', name: 'Oriol Pont', role: 'it depends', image: placeholderImage },
-  { id: '12', name: 'Josep Roura', role: 'Driver', image: placeholderImage },
+  { id: '12', name: 'Carrero Blanco', role: 'First Spanish Astronaut', image: placeholderImage },
+  { id: '13', name: 'Usain Bolt', role: 'Runner', image: placeholderImage },
+  { id: '14', name: 'Willyrex', role: 'Youtuber', image: placeholderImage },
+  { id: '15', name: 'Bill Clinton', role: 'Driver', image: placeholderImage },
+  { id: '16', name: 'Nemo', role: 'Swimmer', image: placeholderImage },
+  { id: '17', name: 'Josep Roura', role: 'Driver', image: placeholderImage },
+  { id: '18', name: 'Josep Roura', role: 'Driver', image: placeholderImage },
+  { id: '19', name: 'Josep Roura', role: 'Driver', image: placeholderImage },
 ];
 
 const SearchScreen: React.FC = () => {
