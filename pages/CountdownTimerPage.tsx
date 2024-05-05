@@ -106,6 +106,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
+  
   timerText: {
     fontSize: 100,
     fontWeight: 'bold',
