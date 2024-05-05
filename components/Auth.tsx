@@ -44,7 +44,7 @@ export default function Auth() {
       <Text />
       <View>
         <View style={styles.group442}>
-          <Text style={commonStyles.header}>Welcome </Text>
+          <Text style={commonStyles.header}>Welcome to BENEFAN </Text>
         </View>
       </View>
       <View style={styles.container}>
@@ -84,12 +84,12 @@ export default function Auth() {
         <View style={[styles.container,styles.mt20]}>
           <View style={[styles.rectangleContainer, styles.mt20]}>
             <TouchableOpacity style={[styles.rectangleButton]} onPress={() => signInWithEmail()}>
-              <Text style={commonStyles.textContainer}>Sign In</Text>
+              <Text style={[commonStyles.textContainer, commonStyles.bold]}>Sign In</Text>
             </TouchableOpacity>
         </View>
         <View style={[styles.rectangleContainer, styles.mt10]}>
           <TouchableOpacity style={[styles.rectangleButton]} onPress={() => signInWithEmail()}>
-            <Text style={commonStyles.textContainer}>Sign Up</Text>
+            <Text style={[commonStyles.textContainer, commonStyles.bold]}>Sign Up</Text>
           </TouchableOpacity>
         </View>
         </View>

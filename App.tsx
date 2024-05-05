@@ -63,6 +63,7 @@ const App: React.FC = () => {
   const Tab = createBottomTabNavigator();
 
   return (
+    session && session.user ? (
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
@@ -94,7 +95,9 @@ const App: React.FC = () => {
         <Tab.Screen name="Details" component={CountdownTimerPage} options={{ headerShown: false }}  />
       </Tab.Navigator>
     </NavigationContainer>
-  );
+  ) : (
+    <Auth />
+  ));
 };
 
 const styles = StyleSheet.create({

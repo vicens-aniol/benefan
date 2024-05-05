@@ -4,6 +4,32 @@ import BlobBackground from '../components/BlobBackground';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import commonStyles from '../styles/commonStyles';
+import { Alert } from 'react-native'; // Make sure to import Alert
+import FontAwesome from 'react-native-vector-icons/FontAwesome'; // Import from vector icons
+import { supabase } from "../lib/supabase";
+
+
+// Function to display a confirmation dialog before logging out
+const confirmSignOut = () => {
+  Alert.alert(
+    'Logout Confirmation',
+    'Are you sure you want to log out?',
+    [
+      {
+        text: 'Cancel',
+        style: 'cancel',
+      },
+      {
+        text: 'Logout',
+        onPress: async () => {
+          console.log("Signing out");
+          await supabase.auth.signOut(); // Replace with your logout logic
+        },
+      },
+    ],
+    { cancelable: false }
+  );
+};
 
 // Define the types for the celebrity and screen state
 type Celebrity = {
@@ -49,6 +75,9 @@ const CarouselPage: React.FC = () => {
   return (
     <BlobBackground>
       <View style={styles.container}>
+        <TouchableOpacity style={styles.logoutIcon} onPress={confirmSignOut}>
+          <FontAwesome name="power-off" size={27} color="#666" />
+        </TouchableOpacity>
         <Image source={celeb.image} style={styles.image} resizeMode="cover" />
         <Text style={styles.header}>{celeb.name}</Text>
         <Text style={styles.description}>{celeb.description}</Text>
@@ -92,7 +121,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 100,
     alignItems: 'center',
     justifyContent: 'center',
-  }
+  },
+  logoutIcon: {
+    position: 'absolute',
+    top: 60, // Adjust to fit your layout
+    left: 20, // Adjust to fit your layout
+    color: '#fff',
+  },
 });
 
 export default CarouselPage;

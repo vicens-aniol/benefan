@@ -37,6 +37,9 @@ const commonStyles = StyleSheet.create({
     fontSize: 20, // Increased font size
     lineHeight: 54, // Aligns text vertically within the container
   },
+  bold: {
+    fontWeight: 'bold',
+  },
   buttonContainer_rounded: {
     backgroundColor: '#4D8D93', // Color de fondo del botón
     borderRadius: 25,          // Bordes redondeados
