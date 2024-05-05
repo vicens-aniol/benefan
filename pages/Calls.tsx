@@ -38,38 +38,6 @@ export default function Calls(roomCallId: string) {
   const [activeScreen, setActiveScreen] = useState("home");
   const goToCallScreen = () => setActiveScreen("call-screen");
   const goToHomeScreen = () => setActiveScreen("home");
-
-  // Function to fetch room calls and update the queueInfo state
-  async function getRoomCalls() {
-    // Fetch the initial room call data with queue and free columns
-    const { data: roomCalls, error } = await supabase
-      .from("room_video_calls")
-      .select("call_id, queue, free") // Include `call_id` explicitly
-      .eq("call_id", roomCallId); // Filter by the specific roomCallId
-
-    if (error) {
-      console.error("Error fetching room calls:", error.message);
-      return;
-    }
-
-    if (roomCalls && roomCalls.length > 0) {
-      const firstCall = roomCalls[0] as RoomVideoCall; // Cast to RoomVideoCall
-
-      // Set the full structure, including the call_id field
-      setQueueInfo({
-        call_id: firstCall.call_id, // Ensure `call_id` is included
-        queue: firstCall.queue,
-        free: firstCall.free,
-      });
-    } else {
-      console.warn("No matching room calls found.");
-      setQueueInfo({
-        call_id: roomCallId, // Provide the original roomCallId in case no calls are found
-        queue: [],
-        free: false,
-      });
-    }
-  }
   // Define the structure of a Room Video Call record
   interface RoomVideoCall {
     call_id: string;
@@ -83,6 +51,23 @@ export default function Calls(roomCallId: string) {
     queue: [],
     free: false,
   });
+
+  async function isCelebrity() {
+    if (session?.user?.id) {
+      const { data, error } = await supabase
+        .from("user_public")
+        .select("is_celebrity")
+        .eq("user_id", session?.user?.id);
+
+      if (error) {
+        console.error("Error fetching user:", error.message);
+        return;
+      } else {
+        console.log(data);
+        return data[0].is_celebrity;
+      }
+    }
+  }
 
   // Adjust the real-time data fetching and subscription
   useEffect(() => {
@@ -162,9 +147,16 @@ export default function Calls(roomCallId: string) {
       queueInfo.queue && queueInfo.queue.includes(session?.user?.email)
     );
 
+    isCelebrity().then((isCelebrity) => {
+      if (isCelebrity) {
+        setCanEnterCall(true);
+      }
+    });
+    console.log(isCelebrity());
+
+    console.log(session?.user.id);
     console.log(queueInfo.queue);
     console.log(canEnterCall);
-    console.log(session?.user);
   }, [queueInfo]);
 
   return (
