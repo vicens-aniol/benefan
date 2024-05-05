@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Animated, Easing } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Animated, Easing, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import BlobBackground from '../components/BlobBackground';
 import { StackNavigationProp } from '@react-navigation/stack';
 import commonStyles from '../styles/commonStyles';
 
 // Define the types for navigation
 type RootStackParamList = {
   CountdownTimer: undefined;
-  NextScreen: undefined; // Replace with the actual screen name
+  NextScreen: undefined;
+  Home: undefined;
 };
 
 type CountdownNavigationProp = StackNavigationProp<RootStackParamList, 'CountdownTimer'>;
@@ -19,23 +21,14 @@ const CountdownTimerPage: React.FC = () => {
   const navigation = useNavigation<CountdownNavigationProp>();
 
   const resetTimer = () => {
-    setTotalSeconds(3); // Reset to 1:10
+    setTotalSeconds(70); // Reset time to 1m 10s
     setIsActive(true);
     animatedOpacity.setValue(1);
     startAnimation();
   };
 
-  //TODO: change to videocall lobbby!
-  type RootStackParamList = {
-    CountdownTimer: undefined;
-    NextScreen: undefined; // Example screen
-    Home: undefined; // Add this screen type definition
-  };
-
-  type CountdownNavigationProp = StackNavigationProp<RootStackParamList, 'CountdownTimer'>;
-
   const navigateToNextScreen = () => {
-    navigation.navigate('Home'); 
+    navigation.navigate('Home');
   };
 
   useEffect(() => {
@@ -80,15 +73,18 @@ const CountdownTimerPage: React.FC = () => {
   const seconds = totalSeconds % 60;
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Get ready for a benefic meet-and-greet experience!</Text>
-      <Animated.View style={{ opacity: animatedOpacity }}>
-        <Text style={styles.timerText}>{`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`}</Text>
-      </Animated.View>
-      <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={resetTimer}>
-        <Text style={commonStyles.boldlabelforbutton}>Reset Timer</Text>
-      </TouchableOpacity>
-    </View>
+    <BlobBackground>
+      <View style={styles.container}>
+        <Image source={require('../assets/LogoText.png')} style={styles.logo} />
+        <Text style={styles.header}>Get ready for a benefic meet-and-greet experience!</Text>
+        <Animated.View style={{ opacity: animatedOpacity }}>
+          <Text style={styles.timerText}>{`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`}</Text>
+        </Animated.View>
+        <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={resetTimer}>
+          <Text style={commonStyles.boldlabelforbutton}>Reset Timer</Text>
+        </TouchableOpacity>
+      </View>
+    </BlobBackground>
   );
 };
 
@@ -97,8 +93,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 20,
-    backgroundColor: '#FFF',
+    padding: 30,
+    paddingBottom: 100,
   },
   header: {
     fontSize: 24,
@@ -106,12 +102,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     textAlign: 'center',
   },
-  
   timerText: {
     fontSize: 100,
     fontWeight: 'bold',
     color: '#4D8D93',
     paddingBottom: 20,
+  },
+  logo: {
+    width: 150, 
+    height: 150,
+    marginBottom: 60, 
+    resizeMode: 'contain',
   },
 });
 
