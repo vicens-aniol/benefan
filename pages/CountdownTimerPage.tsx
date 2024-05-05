@@ -12,20 +12,28 @@ type RootStackParamList = {
   Home: undefined;
 };
 
-type CountdownNavigationProp = StackNavigationProp<RootStackParamList, 'CountdownTimer'>;
+// Define the type of the navigation prop
+type CountdownNavigationProp = {
+  navigate: (screen: string) => void; // Adjust the type as needed
+};
 
-const CountdownTimerPage: React.FC = () => {
-  const [totalSeconds, setTotalSeconds] = useState<number>(920); // Starting time in seconds (15m 20s)
+// Define the type of the props expected by the component
+interface CountdownTimerProps {
+  time?: number; // Example prop, specify additional props if needed
+}
+
+const CountdownTimerPage: React.FC<CountdownTimerProps> = ({ time }) => {
+  const [totalSeconds, setTotalSeconds] = useState<number>(time ?? 920); // Starting time in seconds (15m 20s)
   const [isActive, setIsActive] = useState<boolean>(true);
   const animatedOpacity = useRef(new Animated.Value(1)).current;
   const navigation = useNavigation<CountdownNavigationProp>();
 
-  const resetTimer = () => {
+/*   const resetTimer = () => {
     setTotalSeconds(70); // Reset time to 1m 10s
     setIsActive(true);
     animatedOpacity.setValue(1);
     startAnimation();
-  };
+  }; */
 
   const navigateToNextScreen = () => {
     navigation.navigate('Home');
@@ -80,9 +88,9 @@ const CountdownTimerPage: React.FC = () => {
         <Animated.View style={{ opacity: animatedOpacity }}>
           <Text style={styles.timerText}>{`${minutes}:${seconds < 10 ? '0' : ''}${seconds}`}</Text>
         </Animated.View>
-        <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={resetTimer}>
+        {/* <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={resetTimer}>
           <Text style={commonStyles.boldlabelforbutton}>Reset Timer</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
     </BlobBackground>
   );
@@ -94,7 +102,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: 30,
-    paddingBottom: 100,
+    paddingBottom: 10,
   },
   header: {
     fontSize: 24,

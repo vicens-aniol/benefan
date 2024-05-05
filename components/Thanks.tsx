@@ -26,7 +26,7 @@ const ThankYouScreen: React.FC<ThankYouScreenProps> = ({ isVisible, onClose }) =
           <View style={styles.textContent}>
             <Text style={styles.header}>Thank You!</Text>
             <Text style={styles.message}>
-              Thank you for your impactful support in the fight against cancer! Your dedication shines brightly, offering hope and comfort to those in need.
+              Thank you for your impactful support in the fight against Parkingson's! Your dedication shines brightly, offering hope and comfort to those in need.
             </Text>
             <TouchableOpacity style={styles.doneButton} onPress={onClose}>
               <Text style={styles.doneButtonText}>Done</Text>

@@ -40,10 +40,10 @@ export default function Calls() {
     });
   }, []);
 
-  const apiKey = "jhetkeefqndt";
+  const apiKey = "v3y364337rj2";
   const userId = "general-id";
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZ2VuZXJhbC1pZCJ9.nSLP_-4l_F23cMazgldjZLT1OFIHpbzDL806U8wRYIE";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiZ2VuZXJhbC1pZCJ9.HZq0gf6Qy2HoUmvGQT-AeqS1VFeQFARZiIp67HdTRHE";
   const user: User = {
     id: userId,
     name: session?.user?.email,
@@ -54,7 +54,7 @@ export default function Calls() {
   const [activeScreen, setActiveScreen] = useState("home");
   const goToCallScreen = () => setActiveScreen("call-screen");
   const goToHomeScreen = () => setActiveScreen("home");
-  // const goToRealHomeScreen = () => {navigator.navigate('Home')}
+  // const goToRealHomeScreen = () => {navigator.navigate('CarrouselPage')}
   const goToThankYouScreen = () => setActiveScreen("thank-you");
 
   // Function to fetch room calls and update the queueInfo state

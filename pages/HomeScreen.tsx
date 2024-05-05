@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, Button, StyleSheet } from "react-native";
+import CountdownTimerPage from "./CountdownTimerPage";
 
 type Props = {
   goToCallScreen: () => void;
@@ -14,27 +15,17 @@ export const HomeScreen = ({
   queueInfo,
   inTheQueue,
 }: Props) => {
+
+  useEffect(() => {
+    canEnterCall && goToCallScreen();
+  }, [canEnterCall])
+
   return (
-    <View>
-      <Text style={styles.text}>Welcome to Video Calling</Text>
-      {canEnterCall ? (
-        <Button
-          title="You are now ready to enter"
-          onPress={goToCallScreen}
-        />
-      ) : inTheQueue ? (
-        <View>
-          <Text style={styles.textWaiting}>Waiting for a call</Text>
-          <Text style={styles.textWaiting}>
-            Expected time {queueInfo.queue.length * 30 - 30} seconds
-          </Text>
-        </View>
-      ) : (
-        <Text style={styles.textNoWaiting}>You are not in the queue</Text>
-      )}
-    </View>
+       !canEnterCall && <CountdownTimerPage time={queueInfo.queue.length * 60 - 60}/>
   );
-};
+}
+
+
 
 const styles = StyleSheet.create({
   text: {

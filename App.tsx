@@ -44,7 +44,7 @@ function CarouselStackScreen() {
       <CarouselStack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
       <CarouselStack.Screen name="CelebrityInfo" component={CelebrityInfo} options={{ headerShown: false }} />
       <CarouselStack.Screen name="Calls" component={Calls} options={{ headerShown: false }} />
-
+      
       <CarouselStack.Screen name="ScheduleScreen" component={ScheduleScreen} options={{ headerShown: false }} />
       <CarouselStack.Screen name="CountdownTimerPage" component={CountdownTimerPage} options={{ headerShown: false }} />
     </CarouselStack.Navigator>
