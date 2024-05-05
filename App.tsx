@@ -4,11 +4,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
+
+
 import Home from './pages/Home';
 import Details from './pages/Details';
 import CarouselPage from './pages/CarrouselPage';
 import SearchScreen from './pages/SearchScreen';
 import ScheduleScreen from './pages/ScheduleScreen';
+import CountdownTimerPage from './pages/CountdownTimerPage';
+
+
 import Auth from './components/Auth';
 import { supabase } from './lib/supabase';
 import { Session } from '@supabase/supabase-js';
@@ -58,7 +63,7 @@ const App = () => {
               iconName = 'home';
             } else if (route.name === 'Details') {
               iconName = 'list';
-            } else if (route.name === 'CarouselStack') {
+            } else if (route.name === 'Search') {
               iconName = 'search';
             }
 
@@ -74,9 +79,9 @@ const App = () => {
           tabBarInactiveTintColor: 'gray',
         })}
       >
-        <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="CarouselStack" component={CarouselStackScreen} options={{ headerShown: false }} />
-        <Tab.Screen name="Details" component={ScheduleScreen} options={{ headerShown: false }}  />
+        <Tab.Screen name="Home" component={CarouselStackScreen} options={{ headerShown: false }}  />
+        <Tab.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
+        <Tab.Screen name="Details" component={CountdownTimerPage} options={{ headerShown: false }}  />
       </Tab.Navigator>
     </NavigationContainer>
   ) : (
