@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity, ImageSourcePropType } 
 import BlobBackground from '../components/BlobBackground';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import commonStyles from '../styles/commonStyles';
 
 // Define the types for the celebrity and screen state
 type Celebrity = {
@@ -51,8 +52,8 @@ const CarouselPage: React.FC = () => {
         <Image source={celeb.image} style={styles.image} resizeMode="cover" />
         <Text style={styles.header}>{celeb.name}</Text>
         <Text style={styles.description}>{celeb.description}</Text>
-        <TouchableOpacity style={styles.buttonContainer} onPress={navigate}>
-          <Text style={{ color: '#F5F5F5' }}>Next</Text>
+        <TouchableOpacity style={commonStyles.buttonContainer_rounded} onPress={navigate}>
+          <Text style={commonStyles.boldlabelforbutton}>Next</Text>
         </TouchableOpacity>
       </View>
     </BlobBackground>
