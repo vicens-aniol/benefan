@@ -32,6 +32,17 @@
       "eas": {
         "projectId": "c21264bc-3d7a-47e3-adad-6b79c6b4f1f1"
       }
-    }
+    },
+    "plugins": [
+      "@stream-io/video-react-native-sdk",
+      [
+        "@config-plugins/react-native-webrtc",
+        {
+          // optionally you can add your own explanations for permissions on iOS
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera",
+          "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone"
+        }
+      ]
+    ]
   }
 }

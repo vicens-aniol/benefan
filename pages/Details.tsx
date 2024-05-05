@@ -11,13 +11,6 @@ export default function Details() {
     console.log("Hello");
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      console.log("Details");
-      setText("Details");
-    }, 5000);
-  }, []);
-
   return (
     <View>
       <ButtonAniol
