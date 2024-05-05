@@ -9,6 +9,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Home from './pages/Home';
 import Details from './pages/Details';
 import YourCelebrities from "./pages/YourCelebrities";
+import TestingThx from "./pages/TestingThx";
 import CarouselPage from './pages/CarrouselPage';
 import SearchScreen from './pages/SearchScreen';
 import ScheduleScreen from './pages/ScheduleScreen';
@@ -83,6 +84,10 @@ const App = () => {
         <Tab.Screen name="Home" component={CarouselStackScreen} options={{ headerShown: false }}  />
         <Tab.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
         <Tab.Screen name="Details" component={CountdownTimerPage} options={{ headerShown: false }}  />
+        <Tab.Screen
+          name="TestingThanksf"
+          component={TestingThx}
+        />
       </Tab.Navigator>
     </NavigationContainer>
   ) : (
