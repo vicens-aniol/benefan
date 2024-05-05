@@ -1,370 +1,174 @@
-import React, { useState } from "react";
-import { Alert, StyleSheet, View, Text, ImageBackground, Image, TouchableOpacity } from "react-native";
-import { supabase } from "../lib/supabase";
-import { Button, Input } from "react-native-elements";
+import React from 'react';
+import { View, Text, Image, TouchableOpacity, StyleSheet, ImageSourcePropType } from 'react-native';
+import BlobBackground from '../components/BlobBackground';
+import { StackNavigationProp } from '@react-navigation/stack';
 
-export default function Auth() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
+// Definición de los tipos para la navegación si estás utilizando react-navigation
+type RootStackParamList = {
+  YourCelebrities: undefined;
+  Calls: { roomCallId: string };
+};
 
-  async function signInWithEmail() {
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({
-      email: email,
-      password: password,
-    });
 
-    if (error) Alert.alert(error.message);
-    setLoading(false);
-  }
+type YourCelebritiesProps = {
+  navigation: StackNavigationProp<RootStackParamList, 'YourCelebrities'>;
+};
 
-  async function signUpWithEmail() {
-    setLoading(true);
-    const {
-      data: { session },
-      error,
-    } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    });
+// Adaptando el tipo Celebrity para que coincida con CelebrityInfo
+type Celebrity = {
+  id: string;
+  name: string;
+  role: string;
+  date: string;
+  description: string;
+  image: ImageSourcePropType; // Usando ImageSourcePropType para la imagen
+};
 
-    if (error) Alert.alert(error.message);
-    if (!session)
-      Alert.alert("Please check your inbox for email verification!");
-    setLoading(false);
-  }
-  const BackButtonPress = () => {
-    // TODO when merge with Josep
-    Alert.alert("Back button pressed!");
-  }
-  const ConfigCeleb = () => {
-    // TODO No se que s'ha de fer 
-    Alert.alert("Back button pressed!");
-  }
+const YourCelebrities = ({ navigation }: YourCelebritiesProps) => {
+  const celebrities: Celebrity[] = [
+    {
+      id: '1',
+      name: 'Taylor Swift',
+      role: 'Singer',
+      date: '27 February',
+      description: 'American singer-songwriter.',
+      image: require('../assets/IMG/Celebrities/TaylorSwift.png'),
+    },
+    {
+      id: '2',
+      name: 'Messi',
+      role: 'Football',
+      date: '27 February',
+      description: 'Famous football player.',
+      image: require('../assets/IMG/Celebrities/LionelMessi.png'),
+    },
+  ];
+
+const handleCallPress = (celebrity: Celebrity) => {
+  navigation.navigate('Calls', { roomCallId: "benefan_room_1" });
+};
+
+
   return (
-    <View>
-        <View  style={styles.Headline}>
-            <View style={[styles.Group311,styles.rectangleContainer]}>
-                <TouchableOpacity onPress={BackButtonPress}>
-                    <View style={styles.square}>
-                        <Text style={styles.arrow}>◀</Text>
-                    </View>
-                </TouchableOpacity>
-                <Text style={styles.YourCelebrities}>Your Celebrities</Text>
+    <BlobBackground>
+      <View style={styles.container}>
+        <Text style={styles.title}>Your Celebrities</Text>
+        <Text style={styles.description_centered}>27 February</Text>
+
+        {celebrities.map((celeb) => (
+          <View key={celeb.id} style={styles.celebrityCard}>
+            <Image source={celeb.image} style={styles.image} />
+            <View style={styles.infoContainer}>
+              <Text style={styles.name}>{celeb.name}</Text>
+              <Text style={styles.role}>{celeb.role}</Text>
+              <Text style={styles.time}>{celeb.date}</Text>
             </View>
-        </View>
-        <View style={[styles.dateContainer,styles.mt20]}>
-            <Text style={styles.dateText}>May 4, 2024</Text>
-        </View>
-        <View style={[styles.AllRecords,styles.mt20,]}>
-        <View style={[styles.Group457,styles.centering]}>
-            <View style={[styles.Records2,styles.mt20,]}>
-                <Image
-                    style={styles.MaskGroup1}
-                    source={require("../assets/image 2TaylorSwift.png")     }
-                />
-                <View style={styles.Group7401}>
-                <Text style={styles.Messi}>Taylor Swift</Text>
-                <Text style={[styles.Football,styles.mt10]}>Singer</Text>
-                <Text style={[styles._1833h,styles.mt10]}>13:33h</Text>
-            </View>
-            <View style = {[,styles.AllignRight]}>
-                <TouchableOpacity onPress={ConfigCeleb}>
-                    <View style = {[,styles.AllignRight]}>
-                    <Image
-                     
-                    source={require("../assets/buttonCall.png")     }
-                    />
-                    </View>
-                </TouchableOpacity>
-            </View>
+            <TouchableOpacity onPress={() => handleCallPress(celeb)} style={styles.callButton}>
+              <Text style={styles.callText}>CALL</Text>
+            </TouchableOpacity>
           </View>
-          <View style={[styles.Records2,styles.mt20,]}>
-            <Image
-              style={styles.MaskGroup1}
-              source={require("../assets/image 3Messi.png")     }
-            />
-            <View style={styles.Group7401}>
-              <Text style={styles.Messi}>Messi</Text>
-              <Text style={[styles.Football,styles.mt10]}>Football</Text>
-              <Text style={[styles._1833h,styles.mt10]}>18:33h</Text>
-            </View>
-            <View style = {[,styles.AllignRight]}>
-                <TouchableOpacity onPress={ConfigCeleb}>
-                    <View style = {[,styles.AllignRight]}>
-                    <Image
-                     
-                    source={require("../assets/buttonCall.png")     }
-                    />
-                    </View>
-                </TouchableOpacity>
-            </View>
-          </View>
-        </View>
+        ))}
       </View>
-    </View>
+    </BlobBackground>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center', // Center the image horizontally
-    alignItems: 'center', // Center the image vertically
-    paddingTop: 20, // Separate from the top
-    paddingBottom: 20, // Separate from the bottom
-    paddingHorizontal:50,
-  },
-  rectangleContainer: {
-    position: "absolute",
-    top: 20,
-    left: 20,
-  },
-  textContainer: {
-    color: "#fff",
-    textAlign: "center",
-    fontSize: 20,
-    lineHeight: 54,
-  },
-  group442: {
-    alignItems: "center",
-  },
-  welcomeBack: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  verticallySpaced: {
-    paddingTop: 4,
-    paddingBottom: 4,
-    alignSelf: "stretch",
-  },
-  mt20: {
-    marginTop: 20,
-  },
-  mt10: {
-    marginTop: 10,
-  },
-  mb20: {
-    marginBottom: 20,
-  },
-  inputContainer: {
-    paddingTop: 4,
-    paddingBottom: 4,
-    alignSelf: "stretch",
-    marginBottom: 20,
-  },
-  Tab: {
-    width: 335,
-    height: 126,
-  },
-  Group716: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    width: "100%",
-    height: "100%",
-  },
-  Email: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
     paddingHorizontal: 20,
-    borderWidth: 1,
-    borderColor: "rgba(12, 25, 29, 0.16)",
-    borderRadius: 12,
-    backgroundColor: "rgba(255,255,255,1)",
+    paddingTop: 50,
+    backgroundColor: 'transparent',
   },
-  EmailInput: {
-    flex: 1,
-    borderColor: "#fff",
-    backgroundColor: "#fff",
-    paddingVertical: 0,
+  headerContainer: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000',
+    textAlign: 'center',
+    marginVertical: 20,
   },
-  Vector: {
-    width: 15,
-    height: 11,
+  description_centered: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000',
+    marginTop: '5%',
+    marginBottom: '4%',
   },
-  Password: {
-    width: "100%",
-    height: 54,
+  backButton: {
+    backgroundColor: '#fff',
+    width: 32,
+    height: 32,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 8,
+    marginRight: 16,
   },
-  Group11013: {
-    width: 232.48,
-    height: 180,
-  },
-  Rectangle42: {
-    width: 295,
-    height: 54,
-    borderRadius: 12,
-    backgroundColor: "rgba(77,141,147,1)",
-  },
-  rectangleButton: {
-    width: "100%",
-    height: "100%",
-  },
-  square: {
-    width: 20,
-    height: 20,
-    backgroundColor: "#fff",
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    marginRight:30,
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#000',
+    textAlign: 'center',
+    marginVertical: 20,
   },
   arrow: {
-    fontSize: 12,
-    color: "rgba(77,141,147,1)",
+    fontSize: 14,
+    color: '#4D8D93',
   },
-  YourCelebrities: {
-    color: "rgba(12,25,29,1)",
-    fontWeight: "500",
+  header: {
     fontSize: 20,
-    
-  },  
-  Headline: {
-    width: 182,
-    height: 30,
-    
+    fontWeight: 'bold',
   },
-  Group311: {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
-    height: "100%",
-
-  },
-  Group: {
-    width: 30,
-    height: "100%",
-  },
-  dateContainer: {
-    backgroundColor: "#f0f0f0",
-    padding: 20,
-    borderRadius: 8,
-    paddingLeft: 20,
-  },
-  dateText: {
+  date: {
     fontSize: 16,
-    fontWeight: "bold",
-    color: "#333",
+    fontWeight: 'bold',
+    color: '#333',
+    marginBottom: 20,
   },
-    AllRecords: {
-    position: "relative",
-    height: 193,
+  celebrityCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    padding: 15,
+    borderRadius: 10,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+    elevation: 3,
   },
-  MaskGroup: {
-    position: "absolute",
-    top: 14,
-    left: 14,
-    width: 55,
+  image: {
+    width: 60,
     height: 60,
+    borderRadius: 10,
   },
-  Group457: {
-    position: "absolute",
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    height: "100%",
+  infoContainer: {
+    flex: 1,
+    marginLeft: 16,
   },
-  Group740: {
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
-
+  name: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
-  TaylorSwift: {
-    color: "rgba(0,0,0,1)",
+  role: {
     fontSize: 14,
-    lineHeight: 14,
-    fontWeight: "500",
+    color: '#666',
   },
-  Singer: {
-    color: "rgba(12,25,29,1)",
-    fontSize: 14,
-    lineHeight: 14,
-    fontFamily: "Rubik, sans-serif",
-    fontWeight: "300",
-    letterSpacing: -0.3,
-  },
-  _1353h: {
-    color: "rgba(77,141,147,1)",
+  time: {
     fontSize: 12,
-    lineHeight: 12,
-    fontFamily: "Rubik, sans-serif",
-    fontWeight: "300",
+    color: '#4D8D93',
   },
-  Group741: {
-    width: 4,
-    height: 20,
-  },
-  Records2: {
-    display: "flex",
-    flexDirection: "row",
-    width: "100%",
-    paddingLeft: 15,
-    paddingRight: 5,
-    paddingTop: 9,
-    paddingBottom: 14,
+  callButton: {
+    backgroundColor: '#4D8D93',
     borderRadius: 8,
-    
-    backgroundColor: "rgba(255,255,255,1)",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
   },
-  MaskGroup1: {
-    width: 55,
-    height: 60,
-    borderRadius:10,
+  callText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+});
 
-  },
-  Group7401: {
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
-    paddingRight: 31,
-
-  },
-  Messi: {
-    color: "rgba(0,0,0,1)",
-    fontSize: 14,
-    lineHeight: 14,
-    fontFamily: "Rubik, sans-serif",
-    fontWeight: "500",
-    paddingLeft: 10,
-  },
-  Football: {
-    color: "rgba(12,25,29,1)",
-    fontSize: 14,
-    lineHeight: 14,
-    fontFamily: "Rubik, sans-serif",
-    paddingLeft: 10,
-    letterSpacing: -0.3,
-  },
-  _1833h: {
-    color: "rgba(77,141,147,1)",
-    fontSize: 12,
-    lineHeight: 12,
-    fontFamily: "Rubik, sans-serif",
-    fontWeight: "300",
-    paddingLeft: 10,
-  },
-  Group7411: {
-    width: 4,
-    height: 20,
-  },
-  AllignRight: {
-    position: 'absolute', // Position the container absolutely within its parent
-    top: 0, // Align the container to the top edge
-    right: 0, // Align the container to the right edge
-    padding: 5
-  },
-  centering: {
-    flex: 1, // Take up all available space
-    justifyContent: 'center', // Center items vertically
-    alignItems: 'center', // Center items horizontally
-    padding: 20, // Add a separation of 10 units on each side
-  },
-})
+export default YourCelebrities;

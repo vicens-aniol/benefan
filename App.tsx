@@ -11,6 +11,7 @@ import CarouselPage from './pages/CarouselPage';
 import SearchScreen from './pages/SearchScreen';
 import CelebrityInfo from './pages/CelebrityInfo';
 import YourCelebrities from './pages/YourCelebrities';
+import Calls from './pages/Calls'
 
 
 import ScheduleScreen from './pages/ScheduleScreen';
@@ -28,6 +29,9 @@ type RootStackParamList = {
   Carousel: undefined;
   Search: undefined;
   CelebrityInfo: undefined;
+  Calls: { roomCallId: string };
+  ScheduleScreen: undefined;
+  CountdownTimerPage: undefined;
 };
 
 // Create navigation stacks
@@ -39,9 +43,15 @@ function CarouselStackScreen() {
       <CarouselStack.Screen name="Carousel" component={CarouselPage} options={{ headerShown: false }} />
       <CarouselStack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
       <CarouselStack.Screen name="CelebrityInfo" component={CelebrityInfo} options={{ headerShown: false }} />
+      <CarouselStack.Screen name="Calls" component={Calls} options={{ headerShown: false }} />
+
+      <CarouselStack.Screen name="ScheduleScreen" component={ScheduleScreen} options={{ headerShown: false }} />
+      <CarouselStack.Screen name="CountdownTimerPage" component={CountdownTimerPage} options={{ headerShown: false }} />
     </CarouselStack.Navigator>
   );
 }
+
+
 
 // Tab Navigation for Regular Users
 const TabRegular = createBottomTabNavigator();
@@ -84,7 +94,7 @@ function CelebrityUserTabs() {
           let iconName = '';
           if (route.name === 'Home') iconName = 'home';
           else if (route.name === 'MySchedule') iconName = 'calendar';
-          else if (route.name === 'Countdown') iconName = 'clock';
+          else if (route.name === 'Countdown') iconName = 'bell';
 
           return (
             <View style={focused ? styles.selectedIcon : null}>
@@ -114,38 +124,39 @@ const App: React.FC = () => {
     // Fetch the session data
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
-      if (session && session.user) {
-        // Check the user's role to determine navigation
-        supabase
-          .from('auth.users')
-          .select('role')
-          .eq('id', session.user.id)
-          .single()
-          .then(({ data, error }) => {
-            if (!error && data) {
-              setIsCelebrity(data.role === 'celebrity');
-            }
-          });
-      }
     });
 
     // Listen to authentication state changes
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      if (session && session.user) {
-        supabase
-          .from('auth.users')
-          .select('role')
-          .eq('id', session.user.id)
-          .single()
-          .then(({ data, error }) => {
-            if (!error && data) {
-              setIsCelebrity(data.role === 'celebrity');
-            }
-          });
-      }
     });
+
   }, []);
+
+  useEffect(() => {
+        async function getCelebrity() {
+      if (session?.user?.id) {
+        const { data, error } = await supabase
+          .from("user_public")
+          .select("is_celebrity")
+          .eq("user_id", session?.user?.id);
+  
+        if (error) {
+          console.error("Error fetching user:", error.message);
+          return;
+        } else {
+          console.log(data);
+          return data[0].is_celebrity;
+        }
+      }
+    }
+  
+    getCelebrity().then((checkisCelebrity) => {
+      setIsCelebrity(checkisCelebrity);
+      console.log(isCelebrity);
+    })
+  }, [session]);
+
 
   // Conditionally render the correct navigation based on the user's role
   return (

@@ -11,6 +11,7 @@ import { supabase } from "../lib/supabase";
 
 type Props = {
   goToHomeScreen: () => void;
+  goToThankYouScreen:() => void;
   callId: string;
   queue: any;
   session: any;
@@ -18,12 +19,13 @@ type Props = {
 
 export const CallScreen = ({
   goToHomeScreen,
+  goToThankYouScreen,
   callId,
   queue,
   session,
 }: Props) => {
   const [call, setCall] = React.useState<Call | null>(null);
-  const [timer, setTimer] = React.useState(5);
+  const [timer, setTimer] = React.useState(3);
 
   const client = useStreamVideoClient();
 
@@ -71,7 +73,7 @@ export const CallScreen = ({
       call?.leave();
       // Navigate to home screen, remove from the queue
       removeUserfromQueue();
-      goToHomeScreen();
+      goToThankYouScreen();
     }
   }, [timer]);
 
@@ -90,9 +92,9 @@ export const CallScreen = ({
     <StreamCall call={call}>
       <View style={styles.container}>
         <Text style={styles.timerText}>
-          Timer: {parseTimefromSecToMin(timer)}
+          {parseTimefromSecToMin(timer)}
         </Text>
-        <Text style={styles.text}>Room: {callId}</Text>
+        {/* <Text style={styles.text}>Room: {callId}</Text> */}
         <CallContent onHangupCallHandler={goToHomeScreen} />
       </View>
     </StreamCall>
@@ -114,7 +116,7 @@ const styles = StyleSheet.create({
   timerText: {
     fontSize: 20,
     fontWeight: "bold",
-    marginTop: 20,
+    marginVertical: 20,
     textAlign: "center",
   },
 });

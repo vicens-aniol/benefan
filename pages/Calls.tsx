@@ -8,11 +8,27 @@ import { SafeAreaView, StyleSheet } from "react-native";
 
 import { CallScreen } from "./CallScreen";
 import { HomeScreen } from "./HomeScreen";
+import ThankYouScreen  from "../components/Thanks";
 
 import { Session } from "@supabase/supabase-js";
 import { supabase } from "../lib/supabase";
 
-export default function Calls(roomCallId: string) {
+import {RouteProp, useRoute } from '@react-navigation/native';
+
+type RootStackParamList = {
+  Carousel: undefined;
+  Search: undefined;
+  CelebrityInfo: undefined;
+  Calls: { roomCallId: string };
+};
+
+type CallsRouteProp = RouteProp<RootStackParamList, 'Calls'>;
+
+export default function Calls() {
+
+    const route = useRoute<CallsRouteProp>();
+  const { roomCallId } = route.params;
+
   const [session, setSession] = useState<Session | null>(null);
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -38,6 +54,8 @@ export default function Calls(roomCallId: string) {
   const [activeScreen, setActiveScreen] = useState("home");
   const goToCallScreen = () => setActiveScreen("call-screen");
   const goToHomeScreen = () => setActiveScreen("home");
+  // const goToRealHomeScreen = () => {navigator.navigate('Home')}
+  const goToThankYouScreen = () => setActiveScreen("thank-you");
 
   // Function to fetch room calls and update the queueInfo state
   async function getRoomCalls() {
@@ -173,18 +191,19 @@ export default function Calls(roomCallId: string) {
         {activeScreen === "call-screen" ? (
           <CallScreen
             goToHomeScreen={goToHomeScreen}
+            goToThankYouScreen={goToThankYouScreen}
             callId={roomCallId}
             queue={queueInfo.queue}
             session={session}
           />
-        ) : (
+        ) : activeScreen === "home" ? (
           <HomeScreen
             goToCallScreen={goToCallScreen}
             canEnterCall={canEnterCall}
             queueInfo={queueInfo}
             inTheQueue={inTheQueue}
           />
-        )}
+        ): <ThankYouScreen isVisible={true} onClose={goToHomeScreen}/>}
       </SafeAreaView>
     </StreamVideo>
   );
