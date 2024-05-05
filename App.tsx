@@ -3,12 +3,10 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
 import Calls from "./pages/Calls";
-
 import { useState, useEffect } from "react";
 import { supabase } from "./lib/supabase";
 import Auth from "./components/Auth";
 import { Session } from "@supabase/supabase-js";
-import { View, Text } from "react-native";
 
 const Tab = createBottomTabNavigator();
 
@@ -27,14 +25,7 @@ const App = () => {
 
   return session && session.user ? (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={{
-          tabBarStyle: {
-            height: 170, // Adjust the height to your preference
-            paddingBottom: 60, // Adjust this to control the bottom padding
-          },
-        }}
-      >
+      <Tab.Navigator>
         <Tab.Screen
           name="Home"
           component={Home}
@@ -45,7 +36,7 @@ const App = () => {
         />
         <Tab.Screen
           name="Calls"
-          component={Calls}
+          component={() => Calls("benefan_room_1")}
         />
       </Tab.Navigator>
     </NavigationContainer>
