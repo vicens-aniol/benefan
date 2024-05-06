@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from 'react';
+/* import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-
 import Home from './pages/Home';
 import Details from './pages/Details';
+import YourCelebrities from './pages/YourCelebrities';
 import CarouselPage from './pages/CarouselPage';
 import SearchScreen from './pages/SearchScreen';
 import CelebrityInfo from './pages/CelebrityInfo';
-import YourCelebrities from './pages/YourCelebrities';
-import Calls from './pages/Calls'
-import {CallScreen} from './pages/CallScreen'
-
-
 import ScheduleScreen from './pages/ScheduleScreen';
 import CountdownTimerPage from './pages/CountdownTimerPage';
 
@@ -30,10 +25,13 @@ const screenWidth = Dimensions.get('window').width;
 type RootStackParamList = {
   Carousel: undefined;
   Search: undefined;
-  CelebrityInfo: undefined;
-  Calls: { roomCallId: string };
-  ScheduleScreen: undefined;
-  CountdownTimerPage: undefined;
+  CelebrityInfo: {
+    name: string;
+    role: string;
+    image: any; // Adjust as needed for TypeScript
+    date: string;
+    description: string;
+  };
 };
 
 // Create navigation stacks
@@ -42,18 +40,12 @@ const CarouselStack = createStackNavigator<RootStackParamList>();
 function CarouselStackScreen() {
   return (
     <CarouselStack.Navigator>
-      <CarouselStack.Screen name="Carousel" component={CarouselPage} options={{ headerShown: false, gestureEnabled:false }} />
-      <CarouselStack.Screen name="Search" component={SearchScreen} options={{ headerShown: false, gestureEnabled:false }} />
+      <CarouselStack.Screen name="Carousel" component={CarouselPage} options={{ headerShown: false }} />
+      <CarouselStack.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
       <CarouselStack.Screen name="CelebrityInfo" component={CelebrityInfo} options={{ headerShown: false }} />
-      <CarouselStack.Screen name="Calls" component={Calls} options={{ headerShown: false }} />
-      
-      <CarouselStack.Screen name="ScheduleScreen" component={ScheduleScreen} options={{ headerShown: false, gestureEnabled:false }} />
-      <CarouselStack.Screen name="CountdownTimerPage" component={CountdownTimerPage} options={{ headerShown: false }} />
     </CarouselStack.Navigator>
   );
 }
-
-
 
 // Tab Navigation for Regular Users
 const TabRegular = createBottomTabNavigator();
@@ -81,7 +73,7 @@ function RegularUserTabs() {
     >
       <TabRegular.Screen name="Home" component={CarouselStackScreen} options={{ headerShown: false }} />
       <TabRegular.Screen name="Search" component={SearchScreen} options={{ headerShown: false }} />
-      <TabRegular.Screen name="Details" component={YourCelebrities} options={{ headerShown: false }} />
+      <TabRegular.Screen name="Details" component={CountdownTimerPage} options={{ headerShown: false }} />
     </TabRegular.Navigator>
   );
 }
@@ -96,7 +88,7 @@ function CelebrityUserTabs() {
           let iconName = '';
           if (route.name === 'Home') iconName = 'home';
           else if (route.name === 'MySchedule') iconName = 'calendar';
-          else if (route.name === 'Countdown') iconName = 'bell';
+          else if (route.name === 'Countdown') iconName = 'clock';
 
           return (
             <View style={focused ? styles.selectedIcon : null}>
@@ -112,7 +104,7 @@ function CelebrityUserTabs() {
     >
       <TabCelebrity.Screen name="Home" component={CarouselStackScreen} options={{ headerShown: false }} />
       <TabCelebrity.Screen name="MySchedule" component={ScheduleScreen} options={{ headerShown: false }} />
-      <TabCelebrity.Screen name="Call" component={Calls} options={{ headerShown: false }} />
+      <TabCelebrity.Screen name="Countdown" component={CountdownTimerPage} options={{ headerShown: false }} />
     </TabCelebrity.Navigator>
   );
 }
@@ -126,39 +118,38 @@ const App: React.FC = () => {
     // Fetch the session data
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
+      if (session && session.user) {
+        // Check the user's role to determine navigation
+        supabase
+          .from('auth.users')
+          .select('role')
+          .eq('id', session.user.id)
+          .single()
+          .then(({ data, error }) => {
+            if (!error && data) {
+              setIsCelebrity(data.role === 'celebrity');
+            }
+          });
+      }
     });
 
     // Listen to authentication state changes
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-    });
-
-  }, []);
-
-  useEffect(() => {
-        async function getCelebrity() {
-      if (session?.user?.id) {
-        const { data, error } = await supabase
-          .from("user_public")
-          .select("is_celebrity")
-          .eq("user_id", session?.user?.id);
-  
-        if (error) {
-          console.error("Error fetching user:", error.message);
-          return;
-        } else {
-          console.log(data);
-          return data[0].is_celebrity;
-        }
+      if (session && session.user) {
+        supabase
+          .from('auth.users')
+          .select('role')
+          .eq('id', session.user.id)
+          .single()
+          .then(({ data, error }) => {
+            if (!error && data) {
+              setIsCelebrity(data.role === 'celebrity');
+            }
+          });
       }
-    }
-  
-    getCelebrity().then((checkisCelebrity) => {
-      setIsCelebrity(checkisCelebrity);
-      console.log(isCelebrity);
-    })
-  }, [session]);
-
+    });
+  }, []);
 
   // Conditionally render the correct navigation based on the user's role
   return (
@@ -196,3 +187,4 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+ */
