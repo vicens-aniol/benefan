@@ -14,6 +14,20 @@
         "simulator": true
       }
     },
+    "development-noclient": {
+      "distribution": "internal"
+    },
+    "development-noclient-simulator": {
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      }
+    },
+    "testflight": {
+      "ios": {
+        "distribution": "internal"
+      }
+    },
     "production": {}
   },
   "submit": {
